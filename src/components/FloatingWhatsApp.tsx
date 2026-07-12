@@ -18,7 +18,19 @@ export function FloatingWhatsApp() {
   }, [hasShownTooltip]);
 
   const wppNumber = "5511995104279";
-  const text = encodeURIComponent("Olá! Estou no site e gostaria de conversar com um atendente sobre o fretado.");
+  
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    let text = "Olá! Estou no site e gostaria de conversar com um atendente sobre o fretado.";
+    
+    const leadOrigem = localStorage.getItem('lead_origem');
+    if (leadOrigem) {
+      text += `\n\n[Origem da visita: ${leadOrigem}]`;
+    }
+    
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://wa.me/${wppNumber}?text=${encodedText}`, '_blank');
+  };
 
   return (
     <div className={styles.floatingWppContainer}>
@@ -33,9 +45,8 @@ export function FloatingWhatsApp() {
         Precisa de ajuda?
       </div>
       <a 
-        href={`https://wa.me/${wppNumber}?text=${text}`}
-        target="_blank"
-        rel="noopener noreferrer"
+        href="#"
+        onClick={handleClick}
         className={styles.floatingWppBtn}
         aria-label="Falar pelo WhatsApp"
       >

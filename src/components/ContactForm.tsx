@@ -17,7 +17,7 @@ export function ContactForm() {
     e.preventDefault();
     const wppNumber = "5511995104279";
     
-    const text = `Olá! Meu nome é ${formData.nome}.
+    let text = `Olá! Meu nome é ${formData.nome}.
 Gostaria de informações sobre o fretado.
 
 Origem: ${formData.origem}
@@ -25,6 +25,11 @@ Destino: ${formData.destino}
 Data: ${formData.dataViagem}
 Quantidade de passageiros: ${formData.passageiros}
 Observações: ${formData.observacoes || 'Nenhuma'}`;
+
+    const leadOrigem = localStorage.getItem('lead_origem');
+    if (leadOrigem) {
+      text += `\n\n[Origem da visita: ${leadOrigem}]`;
+    }
 
     const encodedText = encodeURIComponent(text);
     window.open(`https://wa.me/${wppNumber}?text=${encodedText}`, '_blank');

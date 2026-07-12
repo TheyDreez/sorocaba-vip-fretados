@@ -148,7 +148,13 @@ export function SmartRouteAssistant() {
 
   const handleBook = () => {
     if (!bestRoute || !originPlace || !destPlace) return;
-    const msg = `Olá, gostaria de reservar minha vaga.\n\nMinha rota recomendada:\nLinha: ${bestRoute.line.name}\nEmbarque: ${bestRoute.boarding.name}\nDestino: ${bestRoute.dropoff.name}\n\nOrigem: ${originPlace.address}\nTempo até embarque: ${realTime}`;
+    let msg = `Olá, gostaria de reservar minha vaga.\n\nMinha rota recomendada:\nLinha: ${bestRoute.line.name}\nEmbarque: ${bestRoute.boarding.name}\nDestino: ${bestRoute.dropoff.name}\n\nOrigem: ${originPlace.address}\nTempo até embarque: ${realTime}`;
+    
+    const leadOrigem = localStorage.getItem('lead_origem');
+    if (leadOrigem) {
+      msg += `\n\n[Origem da visita: ${leadOrigem}]`;
+    }
+    
     window.open(`https://wa.me/5511995104279?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
