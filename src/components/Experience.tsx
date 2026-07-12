@@ -63,7 +63,7 @@ export function Experience() {
           playsInline 
           poster="/images/premium-poster.jpg"
         >
-          <source src="/videos/premium.mp4" type="video/mp4" />
+          <source src="/videos/interior.mp4" type="video/mp4" />
         </video>
         <div className={styles.heroOverlay} style={{ background: 'rgba(5,5,5,0.75)' }} />
         

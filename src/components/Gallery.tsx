@@ -39,7 +39,7 @@ export function Gallery() {
       </div>
       <div className={styles.galleryGrid}>
         <div className={styles.galleryImageWrapper} ref={(el) => { imagesRef.current[0] = el; }}>
-          <img src="/images/frota-1.jpg" alt="Interior Luxuoso" className={styles.galleryImage} />
+          <video src="/videos/details.mp4" autoPlay loop muted playsInline className={styles.galleryImage} style={{ objectFit: 'cover' }} />
         </div>
         <div className={styles.galleryImageWrapper} ref={(el) => { imagesRef.current[1] = el; }}>
           <img src="/images/frota-2.jpg" alt="Poltronas de Couro" className={styles.galleryImage} />
