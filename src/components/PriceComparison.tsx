@@ -1,118 +1,132 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useRef, useState } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import styles from '@/app/page.module.css';
-import { Bus, MapPin, CheckCircle2, TrendingDown } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
+import { Bus, MapPin, CheckCircle2, TrendingDown, XCircle, ArrowRight } from 'lucide-react';
+import styles from './PriceComparison.module.css';
 
 export function PriceComparison() {
+  const [isVip, setIsVip] = useState(false);
+  
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const traditionalContentRef = useRef<HTMLDivElement>(null);
+  const vipContentRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+  const revealVip = () => {
+    if (isVip) return;
+    setIsVip(true);
 
-    gsap.fromTo(cardsRef.current,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 80%',
-        }
-      }
+    const tl = gsap.timeline();
+
+    // Fade out traditional
+    tl.to(traditionalContentRef.current, {
+      opacity: 0,
+      y: -20,
+      duration: 0.4,
+      ease: 'power2.in'
+    })
+    // Hide button
+    .to(btnRef.current, {
+      opacity: 0,
+      scale: 0.9,
+      duration: 0.3
+    }, "<")
+    // Hide traditional completely
+    .set(traditionalContentRef.current, { display: 'none' })
+    .set(btnRef.current, { display: 'none' })
+    // Show VIP
+    .set(vipContentRef.current, { display: 'flex' })
+    // Animate Card Box Shadow / Border (handled via CSS class toggle in React, but we can pop it)
+    .to(cardRef.current, {
+      scale: 1.02,
+      duration: 0.2,
+      yoyo: true,
+      repeat: 1
+    })
+    // Fade in VIP content
+    .fromTo(vipContentRef.current, 
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }
+    )
+    // Pop savings badge
+    .fromTo(badgeRef.current,
+      { scale: 0, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.5)' },
+      "-=0.3"
     );
-  }, []);
+  };
 
   return (
     <section className={styles.priceComparisonSection} ref={containerRef}>
       <div className={styles.container}>
-        <div className={styles.comparisonHeader}>
-          <h2 className={styles.sectionTitle}>Transporte Premium não precisa custar mais.</h2>
-          <p className={styles.sectionSubtitle}>
-            Compare os custos reais e veja por que nossa linha executiva é o melhor investimento para o seu bolso e seu bem-estar.
+        <div className={styles.header}>
+          <h2 className={styles.title}>Transporte Premium não precisa custar mais.</h2>
+          <p className={styles.subtitle}>
+            A maioria das pessoas não calcula o custo oculto do transporte comum. Veja a comparação real.
           </p>
         </div>
 
-        <div className={styles.comparisonGrid}>
-          {/* Traditional Card */}
-          <div className={`${styles.comparisonCard} ${styles.traditionalCard}`} ref={(el) => { if (el) cardsRef.current[0] = el; }}>
+        <div className={`${styles.interactiveCard} ${isVip ? styles.vipState : ''}`} ref={cardRef}>
+          
+          {/* TRADITIONAL STATE */}
+          <div className={styles.cardContent} ref={traditionalContentRef}>
             <div className={styles.cardHeader}>
-              <Bus className={styles.cardIcon} size={28} />
-              <h3>Ônibus Rodoviária<br/>+ Transporte Público</h3>
-            </div>
-            <div className={styles.cardBody}>
-              <ul className={styles.costList}>
-                <li>
-                  <span className={styles.costLabel}>Passagem avulsa (ida e volta)</span>
-                  <span className={styles.costValue}>R$ 70/dia</span>
-                </li>
-                <li>
-                  <span className={styles.costLabel}>Custo para 22 dias úteis</span>
-                  <span className={styles.costValue}>R$ 1.540/mês</span>
-                </li>
-                <li>
-                  <span className={styles.costLabel}>Metrô/CPTM (Barra Funda → Destino)</span>
-                  <span className={styles.costValue}>~R$ 240/mês</span>
-                </li>
-                <li className={styles.totalRow}>
-                  <span className={styles.costLabel}>Custo Total Estimado</span>
-                  <span className={styles.costValue}>~R$ 1.780/mês</span>
-                </li>
-              </ul>
-              <div className={styles.disadvantages}>
-                <p>• Perda de tempo em baldeações</p>
-                <p>• Filas na rodoviária</p>
-                <p>• Sujeito a superlotação no metrô</p>
-              </div>
-            </div>
-          </div>
-
-          {/* VIP Card */}
-          <div className={`${styles.comparisonCard} ${styles.vipCard}`} ref={(el) => { if (el) cardsRef.current[1] = el; }}>
-            <div className={styles.savingBadge}>
-              <TrendingDown size={18} />
-              Economize ~R$ 800/mês (45% mais barato)
+              <Bus size={28} />
+              <h3>Ônibus Rodoviária + Transporte Público</h3>
             </div>
             
-            <div className={styles.cardHeader}>
-              <MapPin className={styles.cardIcon} size={28} />
-              <h3>Linha Executiva VIP<br/>Batata Fretados</h3>
-            </div>
-            <div className={styles.cardBody}>
-              <ul className={styles.costList}>
-                <li>
-                  <span className={styles.costLabel}>Pacote mensal (ida e volta garantida)</span>
-                  <span className={styles.costValue}>R$ 960/mês</span>
-                </li>
-                <li>
-                  <span className={styles.costLabel}>Transporte direto ao destino</span>
-                  <span className={styles.costValue}>Incluso</span>
-                </li>
-                <li>
-                  <span className={styles.costLabel}>Embarque/Desembarque estratégico</span>
-                  <span className={styles.costValue}>Incluso</span>
-                </li>
-                <li className={styles.totalRow}>
-                  <span className={styles.costLabel}>Custo Total Fixo</span>
-                  <span className={styles.costValue}>R$ 960/mês</span>
-                </li>
-              </ul>
-              <div className={styles.advantages}>
-                <p><CheckCircle2 size={16}/> Bancos leito e Wi-Fi de alta velocidade</p>
-                <p><CheckCircle2 size={16}/> Desembarque direto (Faria Lima, Paulista, Berrini)</p>
-                <p><CheckCircle2 size={16}/> Viagem silenciosa para descansar ou trabalhar</p>
+            <div className={styles.pricingBlock}>
+              <p className={styles.priceLabel}>Custo Médio Mensal (22 dias úteis)</p>
+              <div className={styles.priceValue}>
+                <span>R$</span>1.780<span>/mês</span>
               </div>
             </div>
+
+            <ul className={styles.featureList}>
+              <li><XCircle size={20} /> Passagem rodoviária (ida e volta) + Uber/Metrô até o destino</li>
+              <li><XCircle size={20} /> Filas, superlotação e baldeações exaustivas</li>
+              <li><XCircle size={20} /> Perda de tempo precioso de descanso ou trabalho</li>
+            </ul>
+          </div>
+
+          {/* VIP STATE */}
+          <div className={styles.cardContent} ref={vipContentRef} style={{ display: 'none' }}>
+            <div className={styles.savingsBadge} ref={badgeRef}>
+              <TrendingDown size={18} />
+              Economia garantida de R$ 820/mês
+            </div>
+
+            <div className={`${styles.cardHeader} ${styles.vipHeader}`}>
+              <MapPin size={28} />
+              <h3>Fretado Executivo VIP</h3>
+            </div>
+            
+            <div className={styles.pricingBlock}>
+              <p className={styles.priceLabel}>Pacote Fixo Mensal</p>
+              <div className={`${styles.priceValue} ${styles.vipPriceValue}`}>
+                <span className={styles.strikethrough}>1.780</span>
+                <span>R$</span>960<span>/mês</span>
+              </div>
+            </div>
+
+            <ul className={`${styles.featureList} ${styles.vipFeatureList}`}>
+              <li><CheckCircle2 size={20} /> Embarque e desembarque direto, sem trechos adicionais</li>
+              <li><CheckCircle2 size={20} /> Bancos leito, ambiente silencioso e Wi-Fi de alta velocidade</li>
+              <li><CheckCircle2 size={20} /> Você chega ao destino totalmente descansado e focado</li>
+            </ul>
           </div>
         </div>
+
+        {!isVip && (
+          <div style={{ textAlign: 'center' }}>
+            <button className={styles.revealBtn} onClick={revealVip} ref={btnRef}>
+              Ver Solução VIP <ArrowRight size={18} />
+            </button>
+          </div>
+        )}
+
       </div>
     </section>
   );

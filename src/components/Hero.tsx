@@ -69,10 +69,6 @@ export function Hero() {
           Enquanto o trânsito exige atenção, você aproveita a viagem para descansar. O transporte executivo definitivo entre Sorocaba e São Paulo.
         </p>
         <div ref={ctaRef}>
-          <div className={styles.priceBadge}>
-            <span className={styles.priceBadgeText}>A partir de R$ 960/mês</span>
-          </div>
-
           <div className={styles.heroButtons}>
             <button onClick={scrollToForm} className={styles.btnPrimary}>
               Reservar minha vaga <ArrowRight size={20} />
