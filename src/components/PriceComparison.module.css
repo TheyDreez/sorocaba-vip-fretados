@@ -8,75 +8,86 @@
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
 }
 
 .title {
   font-size: clamp(2rem, 5vw, 3rem);
   color: #fff;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
 }
 
 .subtitle {
   color: rgba(255, 255, 255, 0.6);
   font-size: 1.1rem;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
-/* THE CARD */
-.interactiveCard {
+/* GRID LAYOUT */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* COMMON CARD STYLES */
+.card {
   position: relative;
-  background: rgba(25, 25, 25, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 24px;
   padding: 3rem;
-  overflow: hidden;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  min-height: 480px;
   display: flex;
   flex-direction: column;
+  backdrop-filter: blur(20px);
+  min-height: 480px;
+  opacity: 0; /* for GSAP */
+  transform: translateY(30px); /* for GSAP */
 }
 
-/* VIP STATE OVERRIDES */
-.interactiveCard.vipState {
-  background: rgba(212, 175, 55, 0.03);
-  border-color: rgba(212, 175, 55, 0.3);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 100px rgba(212, 175, 55, 0.05);
+/* TRADITIONAL CARD (PAIN) */
+.cardTraditional {
+  background: rgba(20, 20, 20, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-.interactiveCard::before {
+.cardTraditional::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; height: 3px;
   background: #333;
-  transition: background 0.5s ease;
 }
 
-.interactiveCard.vipState::before {
+/* VIP CARD (SOLUTION) */
+.cardVip {
+  background: rgba(212, 175, 55, 0.03);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 100px rgba(212, 175, 55, 0.05);
+}
+
+.cardVip::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
 }
 
-/* CARD CONTENT (TRADITIONAL) */
-.cardContent {
-  position: absolute;
-  inset: 0;
-  padding: 3rem;
-  display: flex;
-  flex-direction: column;
-  opacity: 1;
-}
-
+/* HEADERS */
 .cardHeader {
   display: flex;
   align-items: center;
@@ -92,8 +103,8 @@
   color: #fff;
 }
 
-.cardHeader svg {
-  color: #888;
+.traditionalHeader svg {
+  color: #666;
 }
 
 .vipHeader h3 {
@@ -107,7 +118,7 @@
 
 /* PRICING */
 .pricingBlock {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .priceLabel {
@@ -119,7 +130,7 @@
 }
 
 .priceValue {
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-family: var(--font-outfit);
   font-weight: 300;
   color: #fff;
@@ -135,6 +146,10 @@
   color: #888;
 }
 
+.traditionalPriceValue {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 .vipPriceValue {
   color: var(--accent-gold);
   font-weight: 500;
@@ -142,13 +157,6 @@
 
 .vipPriceValue span {
   color: rgba(212, 175, 55, 0.5);
-}
-
-.strikethrough {
-  text-decoration: line-through;
-  color: #555;
-  font-size: 1.5rem;
-  margin-right: 1rem;
 }
 
 /* LISTS */
@@ -166,83 +174,61 @@
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  color: #a0a0a0;
   font-size: 1.05rem;
+  line-height: 1.4;
 }
 
-.vipFeatureList li {
-  color: rgba(255,255,255,0.9);
+/* Subtle Red for X icons */
+.traditionalFeatureList li {
+  color: #a0a0a0;
 }
-
-.featureList svg {
-  color: #555;
+.traditionalFeatureList svg {
+  color: rgba(239, 68, 68, 0.6); /* Soft red */
   flex-shrink: 0;
   margin-top: 2px;
 }
 
+/* Gold for check icons */
+.vipFeatureList li {
+  color: rgba(255,255,255,0.9);
+}
 .vipFeatureList svg {
   color: var(--accent-gold);
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 /* SAVINGS BADGE */
 .savingsBadge {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+  top: -15px;
+  right: 2rem;
   background: var(--accent-gold);
   color: #000;
-  padding: 0.5rem 1.2rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 100px;
   font-family: var(--font-outfit);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-  transform: scale(0);
-  transform-origin: center right;
-}
-
-/* BUTTON */
-.revealBtn {
-  margin-top: 3rem;
-  align-self: center;
-  background: transparent;
-  color: var(--accent-gold);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  padding: 12px 30px;
-  border-radius: 100px;
-  font-family: var(--font-outfit);
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.revealBtn:hover {
-  background: rgba(212, 175, 55, 0.1);
-  border-color: var(--accent-gold);
-  transform: translateY(-2px);
+  z-index: 10;
 }
 
 @media (max-width: 600px) {
-  .interactiveCard {
+  .card {
     padding: 2rem;
-    min-height: 520px;
-  }
-  .cardContent {
-    padding: 2rem;
+    min-height: 420px;
   }
   .priceValue {
-    font-size: 3rem;
+    font-size: 2.8rem;
   }
   .savingsBadge {
-    top: auto;
-    bottom: -15px;
+    top: -15px;
     right: 50%;
-    transform: translateX(50%) scale(0) !important;
+    transform: translateX(50%);
+    width: max-content;
   }
 }
