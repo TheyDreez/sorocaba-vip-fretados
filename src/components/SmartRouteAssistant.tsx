@@ -149,7 +149,7 @@ export function SmartRouteAssistant() {
   const handleBook = () => {
     if (!bestRoute || !originPlace || !destPlace) return;
     const msg = `Olá, gostaria de reservar minha vaga.\n\nMinha rota recomendada:\nLinha: ${bestRoute.line.name}\nEmbarque: ${bestRoute.boarding.name}\nDestino: ${bestRoute.dropoff.name}\n\nOrigem: ${originPlace.address}\nTempo até embarque: ${realTime}`;
-    window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`https://wa.me/5511995104279?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   const mapCenter = originPlace ? { lat: originPlace.lat, lng: originPlace.lng } : { lat: -23.5015, lng: -47.4581 };

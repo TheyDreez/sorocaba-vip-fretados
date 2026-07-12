@@ -482,6 +482,32 @@
   font-size: 1.2rem;
 }
 
+.heroButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.priceBadge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 0.5rem 1rem;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.priceBadgeText {
+  color: var(--color-gold);
+  font-family: var(--font-outfit);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
 .footerColumn ul {
   display: flex;
   flex-direction: column;

@@ -1,5 +1,6 @@
 import { Hero } from '@/components/Hero';
 import { TrustIndicators } from '@/components/TrustIndicators';
+import { PriceComparison } from '@/components/PriceComparison';
 import { History } from '@/components/History';
 import { Experience } from '@/components/Experience';
 import { SmartRouteAssistant } from '@/components/SmartRouteAssistant';
@@ -15,6 +16,7 @@ export default function Home() {
     <main>
       <Hero />
       <TrustIndicators />
+      <PriceComparison />
       <History />
       <Experience />
       <SmartRouteAssistant />

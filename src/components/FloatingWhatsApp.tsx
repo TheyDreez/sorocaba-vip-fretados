@@ -18,7 +18,7 @@ export function FloatingWhatsApp() {
     return () => clearTimeout(timer);
   }, [hasShownTooltip]);
 
-  const wppNumber = "5511999999999";
+  const wppNumber = "5511995104279";
   const text = encodeURIComponent("Olá! Estou no site e gostaria de conversar com um atendente sobre o fretado.");
 
   return (
