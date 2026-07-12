@@ -74,11 +74,11 @@ export function PriceComparison() {
           <div className={styles.cardContent} ref={traditionalContentRef}>
             <div className={styles.cardHeader}>
               <Bus size={28} />
-              <h3>Ônibus Rodoviária + Transporte Público</h3>
+              <h3>O que você gasta HOJE no transporte comum</h3>
             </div>
             
             <div className={styles.pricingBlock}>
-              <p className={styles.priceLabel}>Custo Médio Mensal (22 dias úteis)</p>
+              <p className={styles.priceLabel}>Seu custo atual aproximado (22 dias úteis)</p>
               <div className={styles.priceValue}>
                 <span>R$</span>1.780<span>/mês</span>
               </div>
@@ -122,7 +122,7 @@ export function PriceComparison() {
         {!isVip && (
           <div style={{ textAlign: 'center' }}>
             <button className={styles.revealBtn} onClick={revealVip} ref={btnRef}>
-              Ver Solução VIP <ArrowRight size={18} />
+              Veja como viajar VIP por R$ 960/mês <ArrowRight size={18} />
             </button>
           </div>
         )}
