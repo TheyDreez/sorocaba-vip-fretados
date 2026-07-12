@@ -1,0 +1,40 @@
+{
+  "lines": [
+    {
+      "id": "linha-1",
+      "name": "Linha 1 - Executiva",
+      "color": "#D4AF37",
+      "boardingStops": [
+        { "name": "Terminal Sorocaba", "lat": -23.501530, "lng": -47.458140 },
+        { "name": "Shopping Iguatemi (Sorocaba)", "lat": -23.535800, "lng": -47.464500 }
+      ],
+      "dropoffStops": [
+        { "name": "Av. Paulista (MASP)", "lat": -23.561414, "lng": -46.655881 },
+        { "name": "Faria Lima (Baleia)", "lat": -23.586111, "lng": -46.681111 }
+      ],
+      "schedule": [
+        "05:30",
+        "06:30",
+        "07:30"
+      ]
+    },
+    {
+      "id": "linha-2",
+      "name": "Linha 2 - Expressa",
+      "color": "#Silver",
+      "boardingStops": [
+        { "name": "Paço Municipal (Sorocaba)", "lat": -23.475680, "lng": -47.436150 },
+        { "name": "Parque Campolim", "lat": -23.537500, "lng": -47.461900 }
+      ],
+      "dropoffStops": [
+        { "name": "Berrini (WTC)", "lat": -23.608333, "lng": -46.696389 },
+        { "name": "Vila Olímpia (Shopping)", "lat": -23.596000, "lng": -46.688800 }
+      ],
+      "schedule": [
+        "05:45",
+        "06:45",
+        "07:45"
+      ]
+    }
+  ]
+}

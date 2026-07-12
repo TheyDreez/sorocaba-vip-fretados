@@ -1,0 +1,29 @@
+.cursorGlow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  margin: -250px 0 0 -250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0) 70%);
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+.cursorDot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background-color: var(--accent-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  will-change: transform;
+}
