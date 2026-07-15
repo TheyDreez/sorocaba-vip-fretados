@@ -20,20 +20,50 @@
     },
     {
       "id": "linha-2",
-      "name": "Linha 2 - Expressa",
-      "color": "#Silver",
+      "name": "Linha 2 - Zona Sul",
+      "color": "#A0AEC0",
       "boardingStops": [
-        { "name": "Paço Municipal (Sorocaba)", "lat": -23.475680, "lng": -47.436150 },
-        { "name": "Parque Campolim", "lat": -23.537500, "lng": -47.461900 }
+        { "name": "AV. IPANEMA (LUZIO)", "lat": -23.4688, "lng": -47.4841 },
+        { "name": "IPANEMA CRUZ DE FERRO", "lat": -23.4700, "lng": -47.4800 },
+        { "name": "PARQUE SÃO BENTO HORTO 01,02,03 E 04", "lat": -23.4720, "lng": -47.4780 },
+        { "name": "AV. EDGAR FRUFRU SÃO GUILHERME", "lat": -23.4750, "lng": -47.4750 },
+        { "name": "SHOPPING CIDADE AV. ITAVUVU", "lat": -23.4800, "lng": -47.4720 },
+        { "name": "TAUSTE AV. ITAVUVU", "lat": -23.4850, "lng": -47.4700 },
+        { "name": "CARREFOUR RUA ADEMAR DE BARROS", "lat": -23.4900, "lng": -47.4680 },
+        { "name": "SHOPPING SOROCABA", "lat": -23.5010, "lng": -47.4650 },
+        { "name": "PRAÇA 9 DE JULHO", "lat": -23.5050, "lng": -47.4620 },
+        { "name": "RUA SÃO BENTO ( CENTRO)", "lat": -23.5020, "lng": -47.4580 },
+        { "name": "AV. SÃO PAULO SANTA CASA", "lat": -23.5030, "lng": -47.4520 },
+        { "name": "AV. SÃO PAULO CONFIANÇA SUPERMERCADO", "lat": -23.5050, "lng": -47.4480 },
+        { "name": "3 DE MARÇO PARQUE CHICO MENDES", "lat": -23.5100, "lng": -47.4420 },
+        { "name": "CONDOMINIOS LE FRANCE VILA AMORE E PRIMAVERA", "lat": -23.5150, "lng": -47.4380 },
+        { "name": "FÓRUM E OAB", "lat": -23.5200, "lng": -47.4350 },
+        { "name": "AV. INDEPENDENCIA TERMINAL ÉDEN", "lat": -23.5250, "lng": -47.4300 },
+        { "name": "AV. PARANA CONDOMINIO CAMPOS DO CONDE", "lat": -23.5300, "lng": -47.4280 },
+        { "name": "AV. PARANA CONDOMINIO TERRAS SÃO FRANCISCO", "lat": -23.5350, "lng": -47.4250 },
+        { "name": "PARANA ESCOLA KEVEDO", "lat": -23.5400, "lng": -47.4220 },
+        { "name": "AV. PARANA CONDOMINIO CITY CASTELO", "lat": -23.5450, "lng": -47.4200 },
+        { "name": "RODOVIA CASTELO BRANCO", "lat": -23.5500, "lng": -47.4100 }
       ],
       "dropoffStops": [
-        { "name": "Berrini (WTC)", "lat": -23.608333, "lng": -46.696389 },
-        { "name": "Vila Olímpia (Shopping)", "lat": -23.596000, "lng": -46.688800 }
+        { "name": "RODOVIA CASTELO BRANCO KM 26 BARUERI", "lat": -23.5100, "lng": -46.8500 },
+        { "name": "RODOVIA CASTELO BRANCO KM 22 TAMBORE", "lat": -23.5150, "lng": -46.8300 },
+        { "name": "RODOVIA CASTELO BRANCO KM 17 OSASCO", "lat": -23.5200, "lng": -46.7800 },
+        { "name": "MARGINAL PINHEIROS PONTE JAGUARE", "lat": -23.5400, "lng": -46.7350 },
+        { "name": "MARGINAL PINHEIROS PONTE CIDADE UNIVERSITARIA", "lat": -23.5500, "lng": -46.7200 },
+        { "name": "MARGINAL PINHEIROS BUTANTÃ PROX. METRO LINHA AMARELA", "lat": -23.5700, "lng": -46.7050 },
+        { "name": "ESTAÇÃO VILA OLIMPIA CPTM", "lat": -23.5930, "lng": -46.6890 },
+        { "name": "ESTAÇÃO CIDADE JARDIM CPTM", "lat": -23.5850, "lng": -46.6850 },
+        { "name": "ESTAÇÃO HEBRAICA CPTM E PONTE EUSÉBIO MATOSO", "lat": -23.5750, "lng": -46.6950 },
+        { "name": "AVENIDA ENGENHEIRO CARLOS BERRINI VIVO", "lat": -23.6080, "lng": -46.6960 },
+        { "name": "AVENIDA CHUCRI ZAIDAN VIVO SHOPPING MORUMBI E ROCHA VERÁ", "lat": -23.6210, "lng": -46.6990 },
+        { "name": "RUA CECILIA LUTEMBERG PROX. ESTAÇÃO GRANJA JULIETA CPTM", "lat": -23.6330, "lng": -46.7030 },
+        { "name": "RUA CASTRO VERDE PROX. ESTAÇÃO JOÃO DIAS CPTM", "lat": -23.6450, "lng": -46.7150 },
+        { "name": "RUA AMADOR BUENO SANTANDER SANTO AMARO", "lat": -23.6550, "lng": -46.7110 }
       ],
       "schedule": [
-        "05:45",
-        "06:45",
-        "07:45"
+        "04:10",
+        "16:50"
       ]
     }
   ]
