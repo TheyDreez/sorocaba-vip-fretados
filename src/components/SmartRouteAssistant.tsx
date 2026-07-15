@@ -1,15 +1,38 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import { useLoadScript, Autocomplete, GoogleMap, Marker, Polyline } from '@react-google-maps/api';
+import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MapPin, Navigation, Bus, Clock, ArrowRight, QrCode } from 'lucide-react';
 import styles from '@/app/page.module.css';
 import routesData from '@/data/routes.json';
 
+// Dynamically import MapLeaflet with ssr: false
+const MapLeaflet = dynamic(() => import('./MapLeaflet'), { 
+  ssr: false, 
+  loading: () => <div className={styles.assistantLoading}>Iniciando inteligência de rotas...</div> 
+});
+
 gsap.registerPlugin(ScrollTrigger);
 
-const libraries: ("places" | "geometry")[] = ["places", "geometry"];
+// Nominatim Search Function
+const searchNominatim = async (query: string) => {
+  if (!query || query.length < 3) return [];
+  try {
+    const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&countrycodes=br&limit=5`, {
+      headers: { 'Accept-Language': 'pt-BR' }
+    });
+    const data = await res.json();
+    return data.map((d: any) => ({
+      lat: parseFloat(d.lat),
+      lng: parseFloat(d.lon),
+      address: d.display_name
+    }));
+  } catch (err) {
+    console.error("Nominatim error:", err);
+    return [];
+  }
+};
 
 function getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon2: number) {
   const R = 6371; 
@@ -28,7 +51,24 @@ export function SmartRouteAssistant() {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  // Lazy Load Trigger
+  // Autocomplete state
+  const [origQuery, setOrigQuery] = useState('');
+  const [destQuery, setDestQuery] = useState('');
+  const [origResults, setOrigResults] = useState<any[]>([]);
+  const [destResults, setDestResults] = useState<any[]>([]);
+  const [showOrigResults, setShowOrigResults] = useState(false);
+  const [showDestResults, setShowDestResults] = useState(false);
+
+  const origTimer = useRef<NodeJS.Timeout | null>(null);
+  const destTimer = useRef<NodeJS.Timeout | null>(null);
+
+  const [originPlace, setOriginPlace] = useState<{lat: number, lng: number, address: string} | null>(null);
+  const [destPlace, setDestPlace] = useState<{lat: number, lng: number, address: string} | null>(null);
+  
+  const [bestRoute, setBestRoute] = useState<any>(null);
+  const [realTime, setRealTime] = useState<string>("Calculando...");
+  const [routeTime, setRouteTime] = useState<string>("1h15"); 
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
@@ -40,21 +80,6 @@ export function SmartRouteAssistant() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
-
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
-    libraries,
-  });
-
-  const originRef = useRef<google.maps.places.Autocomplete>(null);
-  const destinationRef = useRef<google.maps.places.Autocomplete>(null);
-
-  const [originPlace, setOriginPlace] = useState<{lat: number, lng: number, address: string} | null>(null);
-  const [destPlace, setDestPlace] = useState<{lat: number, lng: number, address: string} | null>(null);
-  
-  const [bestRoute, setBestRoute] = useState<any>(null);
-  const [realTime, setRealTime] = useState<string>("Calculando...");
-  const [routeTime, setRouteTime] = useState<string>("1h15"); // Static estimate for bus route
 
   const calculateBestRoute = (orig: {lat: number, lng: number, address: string}, dest: {lat: number, lng: number, address: string}) => {
     let best: any = null;
@@ -77,7 +102,6 @@ export function SmartRouteAssistant() {
 
       if (closestB && closestD) {
         const routeDist = getDistanceFromLatLonInKm(closestB.lat, closestB.lng, closestD.lat, closestD.lng);
-        // Weight: 40% boarding dist, 40% dropoff dist, 20% route dist
         const score = (minBDist * 0.4) + (minDDist * 0.4) + (routeDist * 0.2);
 
         if (score < minScore) {
@@ -96,54 +120,54 @@ export function SmartRouteAssistant() {
     if (best) {
       setBestRoute(best);
       
-      // GSAP Reveal for the card
+      // Calculate realistic time using math (assuming 25 km/h avg speed for city traffic)
+      // 1 km = 2.4 minutes -> round to 2.5 minutes per km
+      const timeEmbarque = Math.max(2, Math.round(best.bDistKm * 2.5));
+      setRealTime(`${timeEmbarque} minutos`);
+      
       if (cardRef.current) {
         gsap.fromTo(cardRef.current, 
           { opacity: 0, y: 30, scale: 0.95 },
           { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'expo.out' }
         );
       }
-
-      // If we have API loaded, calculate real driving time to boarding
-      if (window.google && window.google.maps) {
-        const ds = new window.google.maps.DistanceMatrixService();
-        ds.getDistanceMatrix({
-          origins: [new window.google.maps.LatLng(orig.lat, orig.lng)],
-          destinations: [new window.google.maps.LatLng((best as any).boarding.lat, (best as any).boarding.lng)],
-          travelMode: window.google.maps.TravelMode.DRIVING,
-        }).then((res) => {
-          if (res.rows[0].elements[0].status === 'OK') {
-            setRealTime(res.rows[0].elements[0].duration.text);
-          } else {
-            setRealTime(`${Math.round((best as any).bDistKm * 3)} minutos`); // fallback 3 mins per km
-          }
-        }).catch(() => {
-          setRealTime(`${Math.round(best.bDistKm * 3)} minutos`);
-        });
-      }
     }
   };
 
-  const handlePlaceChanged = (type: 'origin' | 'dest') => {
-    const autocomplete = type === 'origin' ? originRef.current : destinationRef.current;
-    if (autocomplete) {
-      const place = autocomplete.getPlace();
-      if (place && place.geometry && place.geometry.location) {
-        const data = {
-          lat: place.geometry.location.lat(),
-          lng: place.geometry.location.lng(),
-          address: place.formatted_address || place.name || ''
-        };
-        
-        if (type === 'origin') {
-          setOriginPlace(data);
-          if (destPlace) calculateBestRoute(data, destPlace);
-        } else {
-          setDestPlace(data);
-          if (originPlace) calculateBestRoute(originPlace, data);
-        }
-      }
-    }
+  const handleOrigChange = (e: any) => {
+    const val = e.target.value;
+    setOrigQuery(val);
+    setShowOrigResults(true);
+    if (origTimer.current) clearTimeout(origTimer.current);
+    origTimer.current = setTimeout(async () => {
+      const res = await searchNominatim(val);
+      setOrigResults(res);
+    }, 500);
+  };
+
+  const handleDestChange = (e: any) => {
+    const val = e.target.value;
+    setDestQuery(val);
+    setShowDestResults(true);
+    if (destTimer.current) clearTimeout(destTimer.current);
+    destTimer.current = setTimeout(async () => {
+      const res = await searchNominatim(val);
+      setDestResults(res);
+    }, 500);
+  };
+
+  const selectOrigin = (place: any) => {
+    setOriginPlace(place);
+    setOrigQuery(place.address.split(',')[0]);
+    setShowOrigResults(false);
+    if (destPlace) calculateBestRoute(place, destPlace);
+  };
+
+  const selectDest = (place: any) => {
+    setDestPlace(place);
+    setDestQuery(place.address.split(',')[0]);
+    setShowDestResults(false);
+    if (originPlace) calculateBestRoute(originPlace, place);
   };
 
   const handleBook = () => {
@@ -167,26 +191,54 @@ export function SmartRouteAssistant() {
         <p className={styles.sectionSubtitle}>Informe seu trajeto diário. Nossa inteligência encontrará a conexão executiva perfeita para você.</p>
       </div>
 
-      {!isLoaded || !isVisible ? (
+      {!isVisible ? (
         <div className={styles.assistantLoading}>Iniciando inteligência de rotas...</div>
       ) : (
         <div className={styles.assistantContainer}>
           {/* Inputs Section */}
           <div className={styles.assistantInputs}>
-            <div className={styles.inputWrapper}>
+            <div className={styles.inputWrapper} style={{ position: 'relative' }}>
               <MapPin size={20} className={styles.inputIcon} />
-              <Autocomplete onLoad={(ref) => originRef.current = ref} onPlaceChanged={() => handlePlaceChanged('origin')}>
-                <input type="text" placeholder="De onde você sai? (Ex: Casa)" className={styles.placesInput} />
-              </Autocomplete>
+              <input 
+                type="text" 
+                placeholder="De onde você sai? (Rua, Bairro)" 
+                className={styles.placesInput} 
+                value={origQuery}
+                onChange={handleOrigChange}
+                onFocus={() => setShowOrigResults(true)}
+              />
+              {showOrigResults && origResults.length > 0 && (
+                <div className={styles.autocompleteDropdown}>
+                  {origResults.map((res, i) => (
+                    <div key={i} className={styles.autocompleteItem} onClick={() => selectOrigin(res)}>
+                      {res.address}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             
             <div className={styles.inputSeparator}><ArrowRight size={20} /></div>
 
-            <div className={styles.inputWrapper}>
+            <div className={styles.inputWrapper} style={{ position: 'relative' }}>
               <Navigation size={20} className={styles.inputIcon} />
-              <Autocomplete onLoad={(ref) => destinationRef.current = ref} onPlaceChanged={() => handlePlaceChanged('dest')}>
-                <input type="text" placeholder="Para onde você vai? (Ex: Trabalho)" className={styles.placesInput} />
-              </Autocomplete>
+              <input 
+                type="text" 
+                placeholder="Para onde você vai? (Rua, Bairro)" 
+                className={styles.placesInput} 
+                value={destQuery}
+                onChange={handleDestChange}
+                onFocus={() => setShowDestResults(true)}
+              />
+              {showDestResults && destResults.length > 0 && (
+                <div className={styles.autocompleteDropdown}>
+                  {destResults.map((res, i) => (
+                    <div key={i} className={styles.autocompleteItem} onClick={() => selectDest(res)}>
+                      {res.address}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -194,29 +246,13 @@ export function SmartRouteAssistant() {
           <div className={styles.assistantLayout}>
             {/* Map Area */}
             <div className={styles.mapContainerDark}>
-              <GoogleMap
-                mapContainerStyle={{ width: '100%', height: '100%', borderRadius: '16px' }}
+              <MapLeaflet 
                 center={mapCenter}
                 zoom={bestRoute ? 10 : 12}
-                options={{
-                  disableDefaultUI: true,
-                  styles: googleMapDarkStyle // Defined below
-                }}
-              >
-                {originPlace && <Marker position={originPlace} icon={{ path: window.google.maps.SymbolPath.CIRCLE, scale: 6, fillColor: "#ffffff", fillOpacity: 1, strokeWeight: 2, strokeColor: "#000" }} />}
-                {destPlace && <Marker position={destPlace} icon={{ path: window.google.maps.SymbolPath.CIRCLE, scale: 6, fillColor: "#ffffff", fillOpacity: 1, strokeWeight: 2, strokeColor: "#000" }} />}
-                
-                {bestRoute && (
-                  <>
-                    <Marker position={bestRoute.boarding} icon={{ path: window.google.maps.SymbolPath.CIRCLE, scale: 8, fillColor: bestRoute.line.color, fillOpacity: 1, strokeWeight: 2, strokeColor: "#000" }} />
-                    <Marker position={bestRoute.dropoff} icon={{ path: window.google.maps.SymbolPath.CIRCLE, scale: 8, fillColor: bestRoute.line.color, fillOpacity: 1, strokeWeight: 2, strokeColor: "#000" }} />
-                    <Polyline 
-                      path={[bestRoute.boarding, bestRoute.dropoff]}
-                      options={{ strokeColor: bestRoute.line.color, strokeOpacity: 0.8, strokeWeight: 4 }}
-                    />
-                  </>
-                )}
-              </GoogleMap>
+                origin={originPlace}
+                dest={destPlace}
+                route={bestRoute}
+              />
             </div>
 
             {/* Premium Boarding Pass */}
@@ -280,84 +316,3 @@ export function SmartRouteAssistant() {
     </section>
   );
 }
-
-const googleMapDarkStyle = [
-  { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-  { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
-  { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-  {
-    featureType: "administrative.locality",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }],
-  },
-  {
-    featureType: "poi",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }],
-  },
-  {
-    featureType: "poi.park",
-    elementType: "geometry",
-    stylers: [{ color: "#263c3f" }],
-  },
-  {
-    featureType: "poi.park",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#6b9a76" }],
-  },
-  {
-    featureType: "road",
-    elementType: "geometry",
-    stylers: [{ color: "#38414e" }],
-  },
-  {
-    featureType: "road",
-    elementType: "geometry.stroke",
-    stylers: [{ color: "#212a37" }],
-  },
-  {
-    featureType: "road",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#9ca5b3" }],
-  },
-  {
-    featureType: "road.highway",
-    elementType: "geometry",
-    stylers: [{ color: "#746855" }],
-  },
-  {
-    featureType: "road.highway",
-    elementType: "geometry.stroke",
-    stylers: [{ color: "#1f2835" }],
-  },
-  {
-    featureType: "road.highway",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#f3d19c" }],
-  },
-  {
-    featureType: "transit",
-    elementType: "geometry",
-    stylers: [{ color: "#2f3948" }],
-  },
-  {
-    featureType: "transit.station",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }],
-  },
-  {
-    featureType: "water",
-    elementType: "geometry",
-    stylers: [{ color: "#17263c" }],
-  },
-  {
-    featureType: "water",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#515c6d" }],
-  },
-  {
-    featureType: "water",
-    elementType: "labels.text.stroke",
-    stylers: [{ color: "#17263c" }],
-  }
-];
