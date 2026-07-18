@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: "Batata Fretados | Transporte Executivo Sorocaba ↔ São Paulo",
   description: "Há 39 anos sendo a referência em fretamento executivo diário entre Sorocaba e São Paulo. Confiança, segurança e conforto para a sua rotina.",
   keywords: "fretado Sorocaba São Paulo, Batata Fretados, transporte executivo Sorocaba, fretado diário Sorocaba, ônibus executivo Sorocaba São Paulo",
+  verification: {
+    google: "aAe8plhsWeUEIOpIr4A1jdSgk1IWZzT0Uk3tmqu4atu",
+  },
 };
 
 export default function RootLayout({
