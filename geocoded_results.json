@@ -1,0 +1,326 @@
+[
+  {
+    "name": "Vitória Régia Sorocaba",
+    "coords": {
+      "lat": -23.4307966,
+      "lng": -47.4620114
+    }
+  },
+  {
+    "name": "Altos do Itavuvu Sorocaba",
+    "coords": {
+      "lat": -23.4636401,
+      "lng": -47.4816395
+    }
+  },
+  {
+    "name": "Av Itavuvu Sorocaba",
+    "coords": {
+      "lat": -23.4479265,
+      "lng": -47.4796057
+    }
+  },
+  {
+    "name": "Rua Frederico Schleifer Sorocaba",
+    "coords": {
+      "lat": -23.4795325,
+      "lng": -47.4803569
+    }
+  },
+  {
+    "name": "Santos Dumont Aeroporto Sorocaba",
+    "coords": {
+      "lat": -23.4777055,
+      "lng": -47.4901464
+    }
+  },
+  {
+    "name": "Vanel Ville McDonald's Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "Terminal Ipiranga av Santa Cruz Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "Américo Figueiredo Sorocaba",
+    "coords": {
+      "lat": -23.5066828,
+      "lng": -47.4878637
+    }
+  },
+  {
+    "name": "Armando Pannunzio Bradesco Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "Armando Pannunzio Supermercado Confiança Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "Raposo Tavares Sentido Votorantim",
+    "coords": null
+  },
+  {
+    "name": "Shopping Iguatemi Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "Parque Campolim Sorocaba",
+    "coords": {
+      "lat": -23.5325766,
+      "lng": -47.4687387
+    }
+  },
+  {
+    "name": "Av Cláudio Pinto Nascimento Sesi Votorantim",
+    "coords": null
+  },
+  {
+    "name": "Av 31 de Março Bombeiro Votorantim",
+    "coords": null
+  },
+  {
+    "name": "Marginal Dom Aguirre Sorocaba",
+    "coords": {
+      "lat": -23.4773057,
+      "lng": -47.4426973
+    }
+  },
+  {
+    "name": "Terminal São Paulo Sorocaba",
+    "coords": {
+      "lat": -23.5045325,
+      "lng": -47.4526248
+    }
+  },
+  {
+    "name": "Castelinho Sorocaba",
+    "coords": {
+      "lat": -23.4619076,
+      "lng": -47.3800503
+    }
+  },
+  {
+    "name": "Aparecidinha Sorocaba",
+    "coords": {
+      "lat": -23.4408166,
+      "lng": -47.3732865
+    }
+  },
+  {
+    "name": "Centro Empresarial João Dias São Paulo",
+    "coords": null
+  },
+  {
+    "name": "Estação João Dias São Paulo",
+    "coords": {
+      "lat": -23.6399135,
+      "lng": -46.7234929
+    }
+  },
+  {
+    "name": "Estação Granja Julieta São Paulo",
+    "coords": {
+      "lat": -23.6275294,
+      "lng": -46.7119397
+    }
+  },
+  {
+    "name": "Estação Morumbi São Paulo",
+    "coords": {
+      "lat": -22.9576366,
+      "lng": -47.1201465
+    }
+  },
+  {
+    "name": "Estação Berrini São Paulo",
+    "coords": {
+      "lat": -23.6046443,
+      "lng": -46.6967801
+    }
+  },
+  {
+    "name": "Estação Vila Olímpia São Paulo",
+    "coords": {
+      "lat": -23.5934308,
+      "lng": -46.6927315
+    }
+  },
+  {
+    "name": "Estação Pinheiros São Paulo",
+    "coords": {
+      "lat": -23.567249,
+      "lng": -46.7019515
+    }
+  },
+  {
+    "name": "Estação Cidade Universitária São Paulo",
+    "coords": {
+      "lat": -23.5575886,
+      "lng": -46.7118184
+    }
+  },
+  {
+    "name": "Shopping Villa-Lobos São Paulo",
+    "coords": {
+      "lat": -23.5510818,
+      "lng": -46.7221429
+    }
+  },
+  {
+    "name": "Castelo Branco Km 17 Osasco",
+    "coords": {
+      "lat": -23.5116706,
+      "lng": -46.8033481
+    }
+  },
+  {
+    "name": "Castelo Branco Km 22 Barueri",
+    "coords": {
+      "lat": -23.504943,
+      "lng": -46.8792909
+    }
+  },
+  {
+    "name": "Castelo Branco Km 26 Barueri",
+    "coords": {
+      "lat": -23.5046891,
+      "lng": -46.8664063
+    }
+  },
+  {
+    "name": "AV. IPANEMA LUZIO Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "IPANEMA CRUZ DE FERRO Sorocaba",
+    "coords": {
+      "lat": -23.456415,
+      "lng": -47.5055494
+    }
+  },
+  {
+    "name": "PARQUE SÃO BENTO Sorocaba",
+    "coords": {
+      "lat": -23.4319862,
+      "lng": -47.5062045
+    }
+  },
+  {
+    "name": "AV. EDGAR FRUFRU SÃO GUILHERME Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "SHOPPING CIDADE AV. ITAVUVU Sorocaba",
+    "coords": {
+      "lat": -23.456786,
+      "lng": -47.4833259
+    }
+  },
+  {
+    "name": "TAUSTE AV. ITAVUVU Sorocaba",
+    "coords": {
+      "lat": -23.4672935,
+      "lng": -47.4790687
+    }
+  },
+  {
+    "name": "CARREFOUR RUA ADEMAR DE BARROS Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "SHOPPING SOROCABA",
+    "coords": {
+      "lat": -23.4962886,
+      "lng": -47.467468
+    }
+  },
+  {
+    "name": "PRAÇA 9 DE JULHO Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "RUA SÃO BENTO CENTRO Sorocaba",
+    "coords": {
+      "lat": -23.5002854,
+      "lng": -47.4573663
+    }
+  },
+  {
+    "name": "AV. SÃO PAULO SANTA CASA Sorocaba",
+    "coords": {
+      "lat": -23.456786,
+      "lng": -47.4833259
+    }
+  },
+  {
+    "name": "AV. SÃO PAULO CONFIANÇA SUPERMERCADO Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "PARQUE CHICO MENDES Sorocaba",
+    "coords": {
+      "lat": -23.4767538,
+      "lng": -47.4126313
+    }
+  },
+  {
+    "name": "FÓRUM Sorocaba",
+    "coords": {
+      "lat": -23.4719959,
+      "lng": -47.4212932
+    }
+  },
+  {
+    "name": "AV. INDEPENDENCIA TERMINAL ÉDEN Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "AV. PARANA CONDOMINIO CAMPOS DO CONDE Sorocaba",
+    "coords": null
+  },
+  {
+    "name": "RODOVIA CASTELO BRANCO Sorocaba",
+    "coords": {
+      "lat": -23.3740863,
+      "lng": -47.4329857
+    }
+  },
+  {
+    "name": "MARGINAL PINHEIROS PONTE JAGUARE São Paulo",
+    "coords": null
+  },
+  {
+    "name": "ESTAÇÃO CIDADE JARDIM CPTM São Paulo",
+    "coords": {
+      "lat": -23.7542445,
+      "lng": -46.7092398
+    }
+  },
+  {
+    "name": "ESTAÇÃO HEBRAICA CPTM São Paulo",
+    "coords": null
+  },
+  {
+    "name": "AVENIDA ENGENHEIRO CARLOS BERRINI São Paulo",
+    "coords": {
+      "lat": -23.6121054,
+      "lng": -46.6952362
+    }
+  },
+  {
+    "name": "SHOPPING MORUMBI São Paulo",
+    "coords": {
+      "lat": -23.6234167,
+      "lng": -46.6985436
+    }
+  },
+  {
+    "name": "SANTANDER SANTO AMARO São Paulo",
+    "coords": {
+      "lat": -23.6365734,
+      "lng": -46.6950958
+    }
+  }
+]
