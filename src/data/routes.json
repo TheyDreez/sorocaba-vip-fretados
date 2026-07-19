@@ -2,20 +2,50 @@
   "lines": [
     {
       "id": "linha-1",
-      "name": "Linha 1 - Executiva",
+      "name": "Linha 1",
       "color": "#D4AF37",
       "boardingStops": [
-        { "name": "Terminal Sorocaba", "lat": -23.501530, "lng": -47.458140 },
-        { "name": "Shopping Iguatemi (Sorocaba)", "lat": -23.535800, "lng": -47.464500 }
+        { "name": "Vitória Régia", "lat": -23.4400, "lng": -47.4800 },
+        { "name": "Altos do Itavuvu", "lat": -23.4500, "lng": -47.4700 },
+        { "name": "Av Itavuvu", "lat": -23.4600, "lng": -47.4600 },
+        { "name": "Rua Frederico Schleifer", "lat": -23.4700, "lng": -47.4500 },
+        { "name": "Santos Dumont Aeroporto", "lat": -23.4800, "lng": -47.4400 },
+        { "name": "Vanel Ville McDonald's", "lat": -23.4900, "lng": -47.4300 },
+        { "name": "Terminal Ipiranga av Santa Cruz", "lat": -23.5000, "lng": -47.4200 },
+        { "name": "Américo Figueiredo", "lat": -23.5100, "lng": -47.4100 },
+        { "name": "Armando Pannunzio/Bradesco", "lat": -23.5200, "lng": -47.4000 },
+        { "name": "Armando Pannunzio/ Supermercado Confiança", "lat": -23.5300, "lng": -47.3900 },
+        { "name": "Raposo Tavares/ Sentido Votorantim", "lat": -23.5400, "lng": -47.3800 },
+        { "name": "Votorantim Shopping Iguatemi/ Tauste/ Mercadão", "lat": -23.5500, "lng": -47.3700 },
+        { "name": "Condomínio Sunset / Condomínio Alfa Clube/ Bairro Parque Campolim", "lat": -23.5600, "lng": -47.3600 },
+        { "name": "Av Cláudio Pinto Nascimento/Sesi Votorantim", "lat": -23.5700, "lng": -47.3500 },
+        { "name": "Av 31 de Março Bombeiro Votorantim", "lat": -23.5800, "lng": -47.3400 },
+        { "name": "Posto Madeira sentido Marginal Dom Aguirre", "lat": -23.5900, "lng": -47.3300 },
+        { "name": "Marginal Dom Aguirre/ Terminal São Paulo/ Bombeiro/ Posto Leizer", "lat": -23.6000, "lng": -47.3200 },
+        { "name": "Castelinho", "lat": -23.6100, "lng": -47.3100 },
+        { "name": "Aparecidinha", "lat": -23.6200, "lng": -47.3000 }
       ],
       "dropoffStops": [
-        { "name": "Av. Paulista (MASP)", "lat": -23.561414, "lng": -46.655881 },
-        { "name": "Faria Lima (Baleia)", "lat": -23.586111, "lng": -46.681111 }
+        { "name": "Centro Empresarial João Dias", "lat": -23.6450, "lng": -46.7450 },
+        { "name": "Estação João Dias", "lat": -23.6350, "lng": -46.7350 },
+        { "name": "Estação Granja Julieta", "lat": -23.6250, "lng": -46.7250 },
+        { "name": "Estação Morumbi", "lat": -23.6150, "lng": -46.7150 },
+        { "name": "DED", "lat": -23.6050, "lng": -46.7050 },
+        { "name": "Estação Berrini", "lat": -23.5950, "lng": -46.6950 },
+        { "name": "Posto Ally", "lat": -23.5850, "lng": -46.6850 },
+        { "name": "Estação Vila Olímpia", "lat": -23.5750, "lng": -46.6750 },
+        { "name": "Cidade Jardim (Posto)", "lat": -23.5650, "lng": -46.6650 },
+        { "name": "Estação Pinheiros", "lat": -23.5550, "lng": -46.6550 },
+        { "name": "Estação Cidade Universitária", "lat": -23.5450, "lng": -46.6450 },
+        { "name": "Shopping Villa-Lobos", "lat": -23.5350, "lng": -46.6350 },
+        { "name": "Castelo Branco – Km 17", "lat": -23.5200, "lng": -46.7800 },
+        { "name": "Castelo Branco – Km 22", "lat": -23.5150, "lng": -46.8300 },
+        { "name": "Castelo Branco – Km 26", "lat": -23.5100, "lng": -46.8500 },
+        { "name": "Marginal Pinheiros (Chegada)", "lat": -23.5500, "lng": -46.7000 }
       ],
       "schedule": [
-        "05:30",
-        "06:30",
-        "07:30"
+        "04:00",
+        "17:00"
       ]
     },
     {
