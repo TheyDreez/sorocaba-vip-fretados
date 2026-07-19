@@ -304,6 +304,22 @@ export function SmartRouteAssistant() {
                   </div>
                 </div>
               )})}
+              
+              {/* Card de Sugerir Novo Ponto */}
+              <div className={styles.boardingPassCard} style={{ background: 'rgba(255, 255, 255, 0.02)', borderColor: 'rgba(255, 255, 255, 0.05)' }}>
+                <div className={styles.passHeader}>
+                  <span className={styles.passBrand}>PONTO SOB MEDIDA</span>
+                </div>
+                <h3 className={styles.passLineName} style={{ color: '#aaa', fontSize: '1.2rem', marginTop: '12px' }}>Não encontrou um ponto ideal perto de casa?</h3>
+                <p style={{ color: '#888', marginTop: '8px', fontSize: '0.9rem', lineHeight: '1.4' }}>
+                  Nosso trajeto é flexível. Fale com a equipe e avaliaremos a possibilidade de embarque no seu endereço sugerido.
+                </p>
+                <div className={styles.passFooter} style={{ marginTop: '20px' }}>
+                  <button onClick={() => window.open(`https://wa.me/5511995104279?text=${encodeURIComponent(`Olá, não encontrei um ponto ideal no site. O meu endereço é: ${originPlace?.address || ''}. Seria possível criar uma parada próxima?`)}`, '_blank')} className={styles.btnPrimary} style={{ flex: 1, padding: '16px', background: '#333', color: '#fff' }}>
+                    Sugerir Ponto no WhatsApp
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
