@@ -6,6 +6,8 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 import { CustomCursor } from "@/components/CustomCursor";
 import { LeadTracker } from "@/components/LeadTracker";
 
+import Script from "next/script";
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
 
@@ -25,6 +27,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18333544157"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+      
+            gtag('config', 'AW-18333544157');
+          `}
+        </Script>
+      </head>
       <body className={`${inter.variable} ${outfit.variable}`}>
         <LeadTracker />
         <CustomCursor />
