@@ -65,8 +65,7 @@ export function SmartRouteAssistant() {
   const [originPlace, setOriginPlace] = useState<{lat: number, lng: number, address: string} | null>(null);
   const [destPlace, setDestPlace] = useState<{lat: number, lng: number, address: string} | null>(null);
   
-  const [bestRoute, setBestRoute] = useState<any>(null);
-  const [realTime, setRealTime] = useState<string>("Calculando...");
+  const [viableRoutes, setViableRoutes] = useState<any[]>([]);
   const [routeTime, setRouteTime] = useState<string>("1h15"); 
 
   useEffect(() => {
@@ -82,8 +81,7 @@ export function SmartRouteAssistant() {
   }, []);
 
   const calculateBestRoute = (orig: {lat: number, lng: number, address: string}, dest: {lat: number, lng: number, address: string}) => {
-    let best: any = null;
-    let minScore = Infinity;
+    let viable: any[] = [];
 
     routesData.lines.forEach(line => {
       let closestB: any = null;
@@ -100,37 +98,29 @@ export function SmartRouteAssistant() {
         if (d < minDDist) { minDDist = d; closestD = stop; }
       });
 
-      if (closestB && closestD) {
+      if (closestB && closestD && minBDist < 100 && minDDist < 100) {
         const routeDist = getDistanceFromLatLonInKm(closestB.lat, closestB.lng, closestD.lat, closestD.lng);
         const score = (minBDist * 0.4) + (minDDist * 0.4) + (routeDist * 0.2);
-
-        if (score < minScore) {
-          minScore = score;
-          best = {
-            line,
-            boarding: closestB,
-            dropoff: closestD,
-            bDistKm: minBDist,
-            dDistKm: minDDist
-          };
-        }
+        
+        viable.push({
+          line,
+          boarding: closestB,
+          dropoff: closestD,
+          bDistKm: minBDist,
+          dDistKm: minDDist,
+          score
+        });
       }
     });
 
-    if (best) {
-      setBestRoute(best);
+    viable.sort((a, b) => a.score - b.score);
+    setViableRoutes(viable);
       
-      // Calculate realistic time using math (assuming 25 km/h avg speed for city traffic)
-      // 1 km = 2.4 minutes -> round to 2.5 minutes per km
-      const timeEmbarque = Math.max(2, Math.round(best.bDistKm * 2.5));
-      setRealTime(`${timeEmbarque} minutos`);
-      
-      if (cardRef.current) {
-        gsap.fromTo(cardRef.current, 
-          { opacity: 0, y: 30, scale: 0.95 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'expo.out' }
-        );
-      }
+    if (viable.length > 0 && cardRef.current) {
+      gsap.fromTo(cardRef.current, 
+        { opacity: 0, y: 30, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'expo.out' }
+      );
     }
   };
 
@@ -170,9 +160,10 @@ export function SmartRouteAssistant() {
     if (originPlace) calculateBestRoute(originPlace, place);
   };
 
-  const handleBook = () => {
-    if (!bestRoute || !originPlace || !destPlace) return;
-    let msg = `Olá, gostaria de reservar minha vaga.\n\nMinha rota recomendada:\nLinha: ${bestRoute.line.name}\nEmbarque: ${bestRoute.boarding.name}\nDestino: ${bestRoute.dropoff.name}\n\nOrigem: ${originPlace.address}\nTempo até embarque: ${realTime}`;
+  const handleBook = (route: any) => {
+    if (!route || !originPlace || !destPlace) return;
+    const timeEmbarque = Math.max(2, Math.round(route.bDistKm * 2.5));
+    let msg = `Olá, gostaria de reservar minha vaga.\n\nMinha rota recomendada:\nLinha: ${route.line.name}\nEmbarque: ${route.boarding.name}\nDestino: ${route.dropoff.name}\n\nOrigem: ${originPlace.address}\nTempo até embarque: ${timeEmbarque} minutos`;
     
     const leadOrigem = localStorage.getItem('lead_origem');
     if (leadOrigem) {
@@ -248,68 +239,72 @@ export function SmartRouteAssistant() {
             <div className={styles.mapContainerDark}>
               <MapLeaflet 
                 center={mapCenter}
-                zoom={bestRoute ? 10 : 12}
+                zoom={viableRoutes.length > 0 ? 10 : 12}
                 origin={originPlace}
                 dest={destPlace}
-                route={bestRoute}
+                route={viableRoutes.length > 0 ? viableRoutes[0] : null}
               />
             </div>
 
             {/* Premium Boarding Pass */}
-            {bestRoute && (
-              <div className={styles.boardingPassCard} ref={cardRef}>
-                <div className={styles.passHeader}>
-                  <span className={styles.passBrand}>BATATA FRETADOS</span>
-                  <span className={styles.passTag}>ENCONTRAMOS UMA ROTA COMPATÍVEL</span>
-                </div>
-                
-                <h3 className={styles.passLineName} style={{ color: bestRoute.line.color }}>{bestRoute.line.name}</h3>
-                
-                <div className={styles.passGrid}>
-                  <div className={styles.passRow}>
-                    <MapPin size={18} className={styles.passIcon} />
-                    <div>
-                      <div className={styles.passLabel}>Embarque</div>
-                      <div className={styles.passValue}>{bestRoute.boarding.name}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: 1, minWidth: '300px' }} ref={cardRef}>
+              {viableRoutes.map((route, i) => {
+                const timeEmbarque = Math.max(2, Math.round(route.bDistKm * 2.5));
+                return (
+                <div key={route.line.id} className={styles.boardingPassCard}>
+                  <div className={styles.passHeader}>
+                    <span className={styles.passBrand}>BATATA FRETADOS</span>
+                    <span className={styles.passTag}>{i === 0 ? "MELHOR ROTA COMPATÍVEL" : "OUTRA OPÇÃO DISPONÍVEL"}</span>
+                  </div>
+                  
+                  <h3 className={styles.passLineName} style={{ color: route.line.color }}>{route.line.name}</h3>
+                  
+                  <div className={styles.passGrid}>
+                    <div className={styles.passRow}>
+                      <MapPin size={18} className={styles.passIcon} />
+                      <div>
+                        <div className={styles.passLabel}>Embarque</div>
+                        <div className={styles.passValue}>{route.boarding.name}</div>
+                      </div>
+                    </div>
+                    
+                    <div className={styles.passRow}>
+                      <Navigation size={18} className={styles.passIcon} />
+                      <div>
+                        <div className={styles.passLabel}>Destino</div>
+                        <div className={styles.passValue}>{route.dropoff.name}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.passMetrics}>
+                    <div className={styles.metric}>
+                      <Bus size={20} style={{ color: 'var(--accent-gold)' }} />
+                      <div>
+                        <div className={styles.metricLabel}>Tempo até ônibus</div>
+                        <div className={styles.metricValue}>{timeEmbarque} minutos</div>
+                      </div>
+                    </div>
+                    <div className={styles.metric}>
+                      <Clock size={20} style={{ color: 'var(--accent-gold)' }} />
+                      <div>
+                        <div className={styles.metricLabel}>Viagem estimada</div>
+                        <div className={styles.metricValue}>{routeTime}</div>
+                      </div>
                     </div>
                   </div>
                   
-                  <div className={styles.passRow}>
-                    <Navigation size={18} className={styles.passIcon} />
-                    <div>
-                      <div className={styles.passLabel}>Destino</div>
-                      <div className={styles.passValue}>{bestRoute.dropoff.name}</div>
+                  <div className={styles.passFooter}>
+                    <button onClick={() => handleBook(route)} className={styles.btnPrimary} style={{ flex: 1, padding: '16px' }}>
+                      Reservar Linha
+                    </button>
+                    <div className={styles.qrCodePlaceholder}>
+                      <QrCode size={32} opacity={0.3} />
                     </div>
                   </div>
                 </div>
-
-                <div className={styles.passMetrics}>
-                  <div className={styles.metric}>
-                    <Bus size={20} style={{ color: 'var(--accent-gold)' }} />
-                    <div>
-                      <div className={styles.metricLabel}>Tempo até ônibus</div>
-                      <div className={styles.metricValue}>{realTime}</div>
-                    </div>
-                  </div>
-                  <div className={styles.metric}>
-                    <Clock size={20} style={{ color: 'var(--accent-gold)' }} />
-                    <div>
-                      <div className={styles.metricLabel}>Viagem estimada</div>
-                      <div className={styles.metricValue}>{routeTime}</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className={styles.passFooter}>
-                  <button onClick={handleBook} className={styles.btnPrimary} style={{ flex: 1, padding: '16px' }}>
-                    Reservar pelo WhatsApp
-                  </button>
-                  <div className={styles.qrCodePlaceholder}>
-                    <QrCode size={32} opacity={0.3} />
-                  </div>
-                </div>
-              </div>
-            )}
+              )})}
+            </div>
           </div>
         </div>
       )}
