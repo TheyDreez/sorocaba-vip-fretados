@@ -5,43 +5,183 @@
       "name": "Linha 1",
       "color": "#D4AF37",
       "boardingStops": [
-        { "name": "Vitória Régia", "lat": -23.4400, "lng": -47.4800 },
-        { "name": "Altos do Itavuvu", "lat": -23.4500, "lng": -47.4700 },
-        { "name": "Av Itavuvu", "lat": -23.4600, "lng": -47.4600 },
-        { "name": "Rua Frederico Schleifer", "lat": -23.4700, "lng": -47.4500 },
-        { "name": "Santos Dumont Aeroporto", "lat": -23.4800, "lng": -47.4400 },
-        { "name": "Vanel Ville McDonald's", "lat": -23.4900, "lng": -47.4300 },
-        { "name": "Terminal Ipiranga av Santa Cruz", "lat": -23.5000, "lng": -47.4200 },
-        { "name": "Américo Figueiredo", "lat": -23.5100, "lng": -47.4100 },
-        { "name": "Armando Pannunzio/Bradesco", "lat": -23.5200, "lng": -47.4000 },
-        { "name": "Armando Pannunzio/ Supermercado Confiança", "lat": -23.5300, "lng": -47.3900 },
-        { "name": "Raposo Tavares/ Sentido Votorantim", "lat": -23.5400, "lng": -47.3800 },
-        { "name": "Votorantim Shopping Iguatemi/ Tauste/ Mercadão", "lat": -23.5500, "lng": -47.3700 },
-        { "name": "Condomínio Sunset / Condomínio Alfa Clube/ Bairro Parque Campolim", "lat": -23.5600, "lng": -47.3600 },
-        { "name": "Av Cláudio Pinto Nascimento/Sesi Votorantim", "lat": -23.5700, "lng": -47.3500 },
-        { "name": "Av 31 de Março Bombeiro Votorantim", "lat": -23.5800, "lng": -47.3400 },
-        { "name": "Posto Madeira sentido Marginal Dom Aguirre", "lat": -23.5900, "lng": -47.3300 },
-        { "name": "Marginal Dom Aguirre/ Terminal São Paulo/ Bombeiro/ Posto Leizer", "lat": -23.6000, "lng": -47.3200 },
-        { "name": "Castelinho", "lat": -23.6100, "lng": -47.3100 },
-        { "name": "Aparecidinha", "lat": -23.6200, "lng": -47.3000 }
+        {
+          "name": "Vitória Régia",
+          "lat": -23.430797,
+          "lng": -47.462011
+        },
+        {
+          "name": "Altos do Itavuvu",
+          "lat": -23.46364,
+          "lng": -47.481639
+        },
+        {
+          "name": "Av Itavuvu",
+          "lat": -23.447927,
+          "lng": -47.479606
+        },
+        {
+          "name": "Rua Frederico Schleifer",
+          "lat": -23.479533,
+          "lng": -47.480357
+        },
+        {
+          "name": "Santos Dumont Aeroporto",
+          "lat": -23.477705,
+          "lng": -47.490146
+        },
+        {
+          "name": "Vanel Ville McDonald's",
+          "lat": -23.49,
+          "lng": -47.43
+        },
+        {
+          "name": "Terminal Ipiranga av Santa Cruz",
+          "lat": -23.5,
+          "lng": -47.42
+        },
+        {
+          "name": "Américo Figueiredo",
+          "lat": -23.506683,
+          "lng": -47.487864
+        },
+        {
+          "name": "Armando Pannunzio/Bradesco",
+          "lat": -23.52,
+          "lng": -47.4
+        },
+        {
+          "name": "Armando Pannunzio/ Supermercado Confiança",
+          "lat": -23.53,
+          "lng": -47.39
+        },
+        {
+          "name": "Raposo Tavares/ Sentido Votorantim",
+          "lat": -23.54,
+          "lng": -47.38
+        },
+        {
+          "name": "Votorantim Shopping Iguatemi/ Tauste/ Mercadão",
+          "lat": -23.55,
+          "lng": -47.37
+        },
+        {
+          "name": "Condomínio Sunset / Condomínio Alfa Clube/ Bairro Parque Campolim",
+          "lat": -23.56,
+          "lng": -47.36
+        },
+        {
+          "name": "Av Cláudio Pinto Nascimento/Sesi Votorantim",
+          "lat": -23.57,
+          "lng": -47.35
+        },
+        {
+          "name": "Av 31 de Março Bombeiro Votorantim",
+          "lat": -23.58,
+          "lng": -47.34
+        },
+        {
+          "name": "Posto Madeira sentido Marginal Dom Aguirre",
+          "lat": -23.59,
+          "lng": -47.33
+        },
+        {
+          "name": "Marginal Dom Aguirre/ Terminal São Paulo/ Bombeiro/ Posto Leizer",
+          "lat": -23.6,
+          "lng": -47.32
+        },
+        {
+          "name": "Castelinho",
+          "lat": -23.461908,
+          "lng": -47.38005
+        },
+        {
+          "name": "Aparecidinha",
+          "lat": -23.440817,
+          "lng": -47.373286
+        }
       ],
       "dropoffStops": [
-        { "name": "Centro Empresarial João Dias", "lat": -23.6450, "lng": -46.7450 },
-        { "name": "Estação João Dias", "lat": -23.6350, "lng": -46.7350 },
-        { "name": "Estação Granja Julieta", "lat": -23.6250, "lng": -46.7250 },
-        { "name": "Estação Morumbi", "lat": -23.6150, "lng": -46.7150 },
-        { "name": "DED", "lat": -23.6050, "lng": -46.7050 },
-        { "name": "Estação Berrini", "lat": -23.5950, "lng": -46.6950 },
-        { "name": "Posto Ally", "lat": -23.5850, "lng": -46.6850 },
-        { "name": "Estação Vila Olímpia", "lat": -23.5750, "lng": -46.6750 },
-        { "name": "Cidade Jardim (Posto)", "lat": -23.5650, "lng": -46.6650 },
-        { "name": "Estação Pinheiros", "lat": -23.5550, "lng": -46.6550 },
-        { "name": "Estação Cidade Universitária", "lat": -23.5450, "lng": -46.6450 },
-        { "name": "Shopping Villa-Lobos", "lat": -23.5350, "lng": -46.6350 },
-        { "name": "Castelo Branco – Km 17", "lat": -23.5200, "lng": -46.7800 },
-        { "name": "Castelo Branco – Km 22", "lat": -23.5150, "lng": -46.8300 },
-        { "name": "Castelo Branco – Km 26", "lat": -23.5100, "lng": -46.8500 },
-        { "name": "Marginal Pinheiros (Chegada)", "lat": -23.5500, "lng": -46.7000 }
+        {
+          "name": "Centro Empresarial João Dias",
+          "lat": -23.645,
+          "lng": -46.745
+        },
+        {
+          "name": "Estação João Dias",
+          "lat": -23.639913,
+          "lng": -46.723493
+        },
+        {
+          "name": "Estação Granja Julieta",
+          "lat": -23.627529,
+          "lng": -46.71194
+        },
+        {
+          "name": "Estação Morumbi",
+          "lat": -22.957637,
+          "lng": -47.120146
+        },
+        {
+          "name": "DED",
+          "lat": -23.605,
+          "lng": -46.705
+        },
+        {
+          "name": "Estação Berrini",
+          "lat": -23.604644,
+          "lng": -46.69678
+        },
+        {
+          "name": "Posto Ally",
+          "lat": -23.585,
+          "lng": -46.685
+        },
+        {
+          "name": "Estação Vila Olímpia",
+          "lat": -23.593431,
+          "lng": -46.692732
+        },
+        {
+          "name": "Cidade Jardim (Posto)",
+          "lat": -23.565,
+          "lng": -46.665
+        },
+        {
+          "name": "Estação Pinheiros",
+          "lat": -23.567249,
+          "lng": -46.701951
+        },
+        {
+          "name": "Estação Cidade Universitária",
+          "lat": -23.557589,
+          "lng": -46.711818
+        },
+        {
+          "name": "Shopping Villa-Lobos",
+          "lat": -23.551082,
+          "lng": -46.722143
+        },
+        {
+          "name": "Castelo Branco – Km 17",
+          "lat": -23.52,
+          "lng": -46.78
+        },
+        {
+          "name": "Castelo Branco – Km 22",
+          "lat": -23.515,
+          "lng": -46.83
+        },
+        {
+          "name": "Castelo Branco – Km 26",
+          "lat": -23.51,
+          "lng": -46.85
+        },
+        {
+          "name": "Marginal Pinheiros (Chegada)",
+          "lat": -23.55,
+          "lng": -46.7
+        }
       ],
       "schedule": [
         "04:00",
@@ -53,43 +193,183 @@
       "name": "Linha 2 - Zona Sul",
       "color": "#A0AEC0",
       "boardingStops": [
-        { "name": "AV. IPANEMA (LUZIO)", "lat": -23.4688, "lng": -47.4841 },
-        { "name": "IPANEMA CRUZ DE FERRO", "lat": -23.4700, "lng": -47.4800 },
-        { "name": "PARQUE SÃO BENTO HORTO 01,02,03 E 04", "lat": -23.4720, "lng": -47.4780 },
-        { "name": "AV. EDGAR FRUFRU SÃO GUILHERME", "lat": -23.4750, "lng": -47.4750 },
-        { "name": "SHOPPING CIDADE AV. ITAVUVU", "lat": -23.4800, "lng": -47.4720 },
-        { "name": "TAUSTE AV. ITAVUVU", "lat": -23.4850, "lng": -47.4700 },
-        { "name": "CARREFOUR RUA ADEMAR DE BARROS", "lat": -23.4900, "lng": -47.4680 },
-        { "name": "SHOPPING SOROCABA", "lat": -23.5010, "lng": -47.4650 },
-        { "name": "PRAÇA 9 DE JULHO", "lat": -23.5050, "lng": -47.4620 },
-        { "name": "RUA SÃO BENTO ( CENTRO)", "lat": -23.5020, "lng": -47.4580 },
-        { "name": "AV. SÃO PAULO SANTA CASA", "lat": -23.5030, "lng": -47.4520 },
-        { "name": "AV. SÃO PAULO CONFIANÇA SUPERMERCADO", "lat": -23.5050, "lng": -47.4480 },
-        { "name": "3 DE MARÇO PARQUE CHICO MENDES", "lat": -23.5100, "lng": -47.4420 },
-        { "name": "CONDOMINIOS LE FRANCE VILA AMORE E PRIMAVERA", "lat": -23.5150, "lng": -47.4380 },
-        { "name": "FÓRUM E OAB", "lat": -23.5200, "lng": -47.4350 },
-        { "name": "AV. INDEPENDENCIA TERMINAL ÉDEN", "lat": -23.5250, "lng": -47.4300 },
-        { "name": "AV. PARANA CONDOMINIO CAMPOS DO CONDE", "lat": -23.5300, "lng": -47.4280 },
-        { "name": "AV. PARANA CONDOMINIO TERRAS SÃO FRANCISCO", "lat": -23.5350, "lng": -47.4250 },
-        { "name": "PARANA ESCOLA KEVEDO", "lat": -23.5400, "lng": -47.4220 },
-        { "name": "AV. PARANA CONDOMINIO CITY CASTELO", "lat": -23.5450, "lng": -47.4200 },
-        { "name": "RODOVIA CASTELO BRANCO", "lat": -23.5500, "lng": -47.4100 }
+        {
+          "name": "AV. IPANEMA (LUZIO)",
+          "lat": -23.4688,
+          "lng": -47.4841
+        },
+        {
+          "name": "IPANEMA CRUZ DE FERRO",
+          "lat": -23.456415,
+          "lng": -47.505549
+        },
+        {
+          "name": "PARQUE SÃO BENTO HORTO 01,02,03 E 04",
+          "lat": -23.472,
+          "lng": -47.478
+        },
+        {
+          "name": "AV. EDGAR FRUFRU SÃO GUILHERME",
+          "lat": -23.475,
+          "lng": -47.475
+        },
+        {
+          "name": "SHOPPING CIDADE AV. ITAVUVU",
+          "lat": -23.456786,
+          "lng": -47.483326
+        },
+        {
+          "name": "TAUSTE AV. ITAVUVU",
+          "lat": -23.467294,
+          "lng": -47.479069
+        },
+        {
+          "name": "CARREFOUR RUA ADEMAR DE BARROS",
+          "lat": -23.49,
+          "lng": -47.468
+        },
+        {
+          "name": "SHOPPING SOROCABA",
+          "lat": -23.496289,
+          "lng": -47.467468
+        },
+        {
+          "name": "PRAÇA 9 DE JULHO",
+          "lat": -23.505,
+          "lng": -47.462
+        },
+        {
+          "name": "RUA SÃO BENTO ( CENTRO)",
+          "lat": -23.502,
+          "lng": -47.458
+        },
+        {
+          "name": "AV. SÃO PAULO SANTA CASA",
+          "lat": -23.456786,
+          "lng": -47.483326
+        },
+        {
+          "name": "AV. SÃO PAULO CONFIANÇA SUPERMERCADO",
+          "lat": -23.505,
+          "lng": -47.448
+        },
+        {
+          "name": "3 DE MARÇO PARQUE CHICO MENDES",
+          "lat": -23.51,
+          "lng": -47.442
+        },
+        {
+          "name": "CONDOMINIOS LE FRANCE VILA AMORE E PRIMAVERA",
+          "lat": -23.515,
+          "lng": -47.438
+        },
+        {
+          "name": "FÓRUM E OAB",
+          "lat": -23.52,
+          "lng": -47.435
+        },
+        {
+          "name": "AV. INDEPENDENCIA TERMINAL ÉDEN",
+          "lat": -23.525,
+          "lng": -47.43
+        },
+        {
+          "name": "AV. PARANA CONDOMINIO CAMPOS DO CONDE",
+          "lat": -23.53,
+          "lng": -47.428
+        },
+        {
+          "name": "AV. PARANA CONDOMINIO TERRAS SÃO FRANCISCO",
+          "lat": -23.535,
+          "lng": -47.425
+        },
+        {
+          "name": "PARANA ESCOLA KEVEDO",
+          "lat": -23.54,
+          "lng": -47.422
+        },
+        {
+          "name": "AV. PARANA CONDOMINIO CITY CASTELO",
+          "lat": -23.545,
+          "lng": -47.42
+        },
+        {
+          "name": "RODOVIA CASTELO BRANCO",
+          "lat": -23.374086,
+          "lng": -47.432986
+        }
       ],
       "dropoffStops": [
-        { "name": "RODOVIA CASTELO BRANCO KM 26 BARUERI", "lat": -23.5100, "lng": -46.8500 },
-        { "name": "RODOVIA CASTELO BRANCO KM 22 TAMBORE", "lat": -23.5150, "lng": -46.8300 },
-        { "name": "RODOVIA CASTELO BRANCO KM 17 OSASCO", "lat": -23.5200, "lng": -46.7800 },
-        { "name": "MARGINAL PINHEIROS PONTE JAGUARE", "lat": -23.5400, "lng": -46.7350 },
-        { "name": "MARGINAL PINHEIROS PONTE CIDADE UNIVERSITARIA", "lat": -23.5500, "lng": -46.7200 },
-        { "name": "MARGINAL PINHEIROS BUTANTÃ PROX. METRO LINHA AMARELA", "lat": -23.5700, "lng": -46.7050 },
-        { "name": "ESTAÇÃO VILA OLIMPIA CPTM", "lat": -23.5930, "lng": -46.6890 },
-        { "name": "ESTAÇÃO CIDADE JARDIM CPTM", "lat": -23.5850, "lng": -46.6850 },
-        { "name": "ESTAÇÃO HEBRAICA CPTM E PONTE EUSÉBIO MATOSO", "lat": -23.5750, "lng": -46.6950 },
-        { "name": "AVENIDA ENGENHEIRO CARLOS BERRINI VIVO", "lat": -23.6080, "lng": -46.6960 },
-        { "name": "AVENIDA CHUCRI ZAIDAN VIVO SHOPPING MORUMBI E ROCHA VERÁ", "lat": -23.6210, "lng": -46.6990 },
-        { "name": "RUA CECILIA LUTEMBERG PROX. ESTAÇÃO GRANJA JULIETA CPTM", "lat": -23.6330, "lng": -46.7030 },
-        { "name": "RUA CASTRO VERDE PROX. ESTAÇÃO JOÃO DIAS CPTM", "lat": -23.6450, "lng": -46.7150 },
-        { "name": "RUA AMADOR BUENO SANTANDER SANTO AMARO", "lat": -23.6550, "lng": -46.7110 }
+        {
+          "name": "RODOVIA CASTELO BRANCO KM 26 BARUERI",
+          "lat": -23.51,
+          "lng": -46.85
+        },
+        {
+          "name": "RODOVIA CASTELO BRANCO KM 22 TAMBORE",
+          "lat": -23.515,
+          "lng": -46.83
+        },
+        {
+          "name": "RODOVIA CASTELO BRANCO KM 17 OSASCO",
+          "lat": -23.52,
+          "lng": -46.78
+        },
+        {
+          "name": "MARGINAL PINHEIROS PONTE JAGUARE",
+          "lat": -23.54,
+          "lng": -46.735
+        },
+        {
+          "name": "MARGINAL PINHEIROS PONTE CIDADE UNIVERSITARIA",
+          "lat": -23.55,
+          "lng": -46.72
+        },
+        {
+          "name": "MARGINAL PINHEIROS BUTANTÃ PROX. METRO LINHA AMARELA",
+          "lat": -23.57,
+          "lng": -46.705
+        },
+        {
+          "name": "ESTAÇÃO VILA OLIMPIA CPTM",
+          "lat": -23.593,
+          "lng": -46.689
+        },
+        {
+          "name": "ESTAÇÃO CIDADE JARDIM CPTM",
+          "lat": -23.754244,
+          "lng": -46.70924
+        },
+        {
+          "name": "ESTAÇÃO HEBRAICA CPTM E PONTE EUSÉBIO MATOSO",
+          "lat": -23.575,
+          "lng": -46.695
+        },
+        {
+          "name": "AVENIDA ENGENHEIRO CARLOS BERRINI VIVO",
+          "lat": -23.608,
+          "lng": -46.696
+        },
+        {
+          "name": "AVENIDA CHUCRI ZAIDAN VIVO SHOPPING MORUMBI E ROCHA VERÁ",
+          "lat": -23.621,
+          "lng": -46.699
+        },
+        {
+          "name": "RUA CECILIA LUTEMBERG PROX. ESTAÇÃO GRANJA JULIETA CPTM",
+          "lat": -23.633,
+          "lng": -46.703
+        },
+        {
+          "name": "RUA CASTRO VERDE PROX. ESTAÇÃO JOÃO DIAS CPTM",
+          "lat": -23.645,
+          "lng": -46.715
+        },
+        {
+          "name": "RUA AMADOR BUENO SANTANDER SANTO AMARO",
+          "lat": -23.655,
+          "lng": -46.711
+        }
       ],
       "schedule": [
         "04:10",
