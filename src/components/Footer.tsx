@@ -16,9 +16,7 @@ export function Footer() {
         <div className={styles.footerColumn}>
           <h4>Contato</h4>
           <ul>
-            <li><a href="https://wa.me/5511999999999" target="_blank" rel="noreferrer">WhatsApp: (11) 99999-9999</a></li>
-            <li><a href="tel:551100000000">Central: (11) 0000-0000</a></li>
-            <li><a href="mailto:contato@batatafretados.com.br">contato@batatafretados.com.br</a></li>
+            <li><a href="https://wa.me/5511995104279" target="_blank" rel="noreferrer">WhatsApp: (11) 99510-4279</a></li>
           </ul>
         </div>
         
