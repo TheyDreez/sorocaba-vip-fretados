@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MapPin, Navigation, Bus, Clock, ArrowRight, QrCode } from 'lucide-react';
 import styles from '@/app/page.module.css';
 import routesData from '@/data/routes.json';
+import { trackWhatsAppConversion } from '@/utils/trackConversion';
 
 // Dynamically import MapLeaflet with ssr: false
 const MapLeaflet = dynamic(() => import('./MapLeaflet'), { 
@@ -162,6 +163,7 @@ export function SmartRouteAssistant() {
 
   const handleBook = (route: any) => {
     if (!route || !originPlace || !destPlace) return;
+    trackWhatsAppConversion();
     const timeEmbarque = Math.max(2, Math.round(route.bDistKm * 2.5));
     let msg = `Olá, gostaria de reservar minha vaga.\n\nMinha rota recomendada:\nLinha: ${route.line.name}\nEmbarque: ${route.boarding.name}\nDestino: ${route.dropoff.name}\n\nOrigem: ${originPlace.address}\nTempo até embarque: ${timeEmbarque} minutos`;
     
@@ -315,7 +317,10 @@ export function SmartRouteAssistant() {
                   Nosso trajeto é flexível. Fale com a equipe e avaliaremos a possibilidade de embarque no seu endereço sugerido.
                 </p>
                 <div className={styles.passFooter} style={{ marginTop: '20px' }}>
-                  <button onClick={() => window.open(`https://wa.me/5511995104279?text=${encodeURIComponent(`Olá, não encontrei um ponto ideal no site. O meu endereço é: ${originPlace?.address || ''}. Seria possível criar uma parada próxima?`)}`, '_blank')} className={styles.btnPrimary} style={{ flex: 1, padding: '16px', background: '#333', color: '#fff' }}>
+                  <button onClick={() => {
+                    trackWhatsAppConversion();
+                    window.open(`https://wa.me/5511995104279?text=${encodeURIComponent(`Olá, não encontrei um ponto ideal no site. O meu endereço é: ${originPlace?.address || ''}. Seria possível criar uma parada próxima?`)}`, '_blank');
+                  }} className={styles.btnPrimary} style={{ flex: 1, padding: '16px', background: '#333', color: '#fff' }}>
                     Sugerir Ponto no WhatsApp
                   </button>
                 </div>

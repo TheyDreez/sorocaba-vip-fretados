@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { MessageCircle } from 'lucide-react';
 import styles from '@/app/page.module.css';
+import { trackWhatsAppConversion } from '@/utils/trackConversion';
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export function ContactForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    trackWhatsAppConversion();
     const wppNumber = "5511995104279";
     
     let text = `Olá! Meu nome é ${formData.nome}.

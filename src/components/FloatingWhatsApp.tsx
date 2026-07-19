@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import styles from '@/app/page.module.css';
+import { trackWhatsAppConversion } from '@/utils/trackConversion';
 
 export function FloatingWhatsApp() {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -21,6 +22,7 @@ export function FloatingWhatsApp() {
   
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    trackWhatsAppConversion();
     let text = "Olá! Estou no site e gostaria de conversar com um atendente sobre o fretado.";
     
     const leadOrigem = localStorage.getItem('lead_origem');
