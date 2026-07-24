@@ -8,11 +8,7 @@ import styles from '@/app/page.module.css';
 import routesData from '@/data/routes.json';
 import { trackWhatsAppConversion } from '@/utils/trackConversion';
 
-// Dynamically import MapLeaflet with ssr: false
-const MapLeaflet = dynamic(() => import('./MapLeaflet'), { 
-  ssr: false, 
-  loading: () => <div className={styles.assistantLoading}>Iniciando inteligência de rotas...</div> 
-});
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -237,16 +233,7 @@ export function SmartRouteAssistant() {
 
           {/* Results Area */}
           <div className={styles.assistantLayout}>
-            {/* Map Area */}
-            <div className={styles.mapContainerDark}>
-              <MapLeaflet 
-                center={mapCenter}
-                zoom={viableRoutes.length > 0 ? 10 : 12}
-                origin={originPlace}
-                dest={destPlace}
-                route={viableRoutes.length > 0 ? viableRoutes[0] : null}
-              />
-            </div>
+
 
             {/* Premium Boarding Pass */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: 1, minWidth: '300px' }} ref={cardRef}>
