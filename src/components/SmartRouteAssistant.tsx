@@ -12,21 +12,34 @@ import { trackWhatsAppConversion } from '@/utils/trackConversion';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Bounding box que cobre Sorocaba/Votorantim até a Grande São Paulo.
+// Sem isso, o Nominatim pode retornar endereços homônimos em outras cidades
+// do Brasil (ex.: "Rua São Bento" existe em dezenas de cidades), fazendo o
+// cálculo de distância explodir e o assistente não encontrar nenhuma rota.
+// Formato exigido pela API: left,top,right,bottom (lng,lat,lng,lat)
+const SEARCH_VIEWBOX = '-47.75,-23.20,-46.55,-23.85';
+
 // Nominatim Search Function
-const searchNominatim = async (query: string) => {
+const searchNominatim = async (query: string, signal?: AbortSignal) => {
   if (!query || query.length < 3) return [];
   try {
-    const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&countrycodes=br&limit=5`, {
-      headers: { 'Accept-Language': 'pt-BR' }
-    });
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&countrycodes=br&viewbox=${SEARCH_VIEWBOX}&bounded=1&limit=5`,
+      {
+        headers: { 'Accept-Language': 'pt-BR' },
+        signal
+      }
+    );
     const data = await res.json();
     return data.map((d: any) => ({
       lat: parseFloat(d.lat),
       lng: parseFloat(d.lon),
       address: d.display_name
     }));
-  } catch (err) {
-    console.error("Nominatim error:", err);
+  } catch (err: any) {
+    if (err?.name !== 'AbortError') {
+      console.error("Nominatim error:", err);
+    }
     return [];
   }
 };
@@ -58,11 +71,16 @@ export function SmartRouteAssistant() {
 
   const origTimer = useRef<NodeJS.Timeout | null>(null);
   const destTimer = useRef<NodeJS.Timeout | null>(null);
+  const origAbort = useRef<AbortController | null>(null);
+  const destAbort = useRef<AbortController | null>(null);
+  const origWrapperRef = useRef<HTMLDivElement>(null);
+  const destWrapperRef = useRef<HTMLDivElement>(null);
 
   const [originPlace, setOriginPlace] = useState<{lat: number, lng: number, address: string} | null>(null);
   const [destPlace, setDestPlace] = useState<{lat: number, lng: number, address: string} | null>(null);
   
   const [viableRoutes, setViableRoutes] = useState<any[]>([]);
+  const [searchedOnce, setSearchedOnce] = useState(false);
   const [routeTime, setRouteTime] = useState<string>("1h15"); 
 
   useEffect(() => {
@@ -76,6 +94,37 @@ export function SmartRouteAssistant() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
+  // Limpa timers/fetches pendentes ao desmontar o componente
+  useEffect(() => {
+    return () => {
+      if (origTimer.current) clearTimeout(origTimer.current);
+      if (destTimer.current) clearTimeout(destTimer.current);
+      origAbort.current?.abort();
+      destAbort.current?.abort();
+    };
+  }, []);
+
+  // Fecha os dropdowns de autocomplete ao clicar fora deles
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (origWrapperRef.current && !origWrapperRef.current.contains(e.target as Node)) {
+        setShowOrigResults(false);
+      }
+      if (destWrapperRef.current && !destWrapperRef.current.contains(e.target as Node)) {
+        setShowDestResults(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Raio máximo aceitável até um ponto de embarque/desembarque, em km.
+  // 100km (valor original) cobre praticamente todo o estado de SP e faz o
+  // assistente "aceitar" combinações de origem/destino sem nenhuma relação
+  // real com o trajeto das linhas, o que gera recomendações sem sentido.
+  const MAX_BOARDING_DIST_KM = 12;   // até 12km do ponto de embarque em Sorocaba/Votorantim
+  const MAX_DROPOFF_DIST_KM = 8;     // até 8km do ponto de desembarque em São Paulo
 
   const calculateBestRoute = (orig: {lat: number, lng: number, address: string}, dest: {lat: number, lng: number, address: string}) => {
     let viable: any[] = [];
@@ -95,7 +144,7 @@ export function SmartRouteAssistant() {
         if (d < minDDist) { minDDist = d; closestD = stop; }
       });
 
-      if (closestB && closestD && minBDist < 100 && minDDist < 100) {
+      if (closestB && closestD && minBDist < MAX_BOARDING_DIST_KM && minDDist < MAX_DROPOFF_DIST_KM) {
         const routeDist = getDistanceFromLatLonInKm(closestB.lat, closestB.lng, closestD.lat, closestD.lng);
         const score = (minBDist * 0.4) + (minDDist * 0.4) + (routeDist * 0.2);
         
@@ -112,6 +161,7 @@ export function SmartRouteAssistant() {
 
     viable.sort((a, b) => a.score - b.score);
     setViableRoutes(viable);
+    setSearchedOnce(true);
       
     if (viable.length > 0 && cardRef.current) {
       gsap.fromTo(cardRef.current, 
@@ -125,9 +175,12 @@ export function SmartRouteAssistant() {
     const val = e.target.value;
     setOrigQuery(val);
     setShowOrigResults(true);
+    setOriginPlace(null); // invalida seleção anterior até o usuário escolher de novo
     if (origTimer.current) clearTimeout(origTimer.current);
     origTimer.current = setTimeout(async () => {
-      const res = await searchNominatim(val);
+      origAbort.current?.abort();
+      origAbort.current = new AbortController();
+      const res = await searchNominatim(val, origAbort.current.signal);
       setOrigResults(res);
     }, 500);
   };
@@ -136,9 +189,12 @@ export function SmartRouteAssistant() {
     const val = e.target.value;
     setDestQuery(val);
     setShowDestResults(true);
+    setDestPlace(null); // invalida seleção anterior até o usuário escolher de novo
     if (destTimer.current) clearTimeout(destTimer.current);
     destTimer.current = setTimeout(async () => {
-      const res = await searchNominatim(val);
+      destAbort.current?.abort();
+      destAbort.current = new AbortController();
+      const res = await searchNominatim(val, destAbort.current.signal);
       setDestResults(res);
     }, 500);
   };
@@ -186,7 +242,7 @@ export function SmartRouteAssistant() {
         <div className={styles.assistantContainer}>
           {/* Inputs Section */}
           <div className={styles.assistantInputs}>
-            <div className={styles.inputWrapper} style={{ position: 'relative' }}>
+            <div className={styles.inputWrapper} style={{ position: 'relative' }} ref={origWrapperRef}>
               <MapPin size={20} className={styles.inputIcon} />
               <input 
                 type="text" 
@@ -209,7 +265,7 @@ export function SmartRouteAssistant() {
             
             <div className={styles.inputSeparator}><ArrowRight size={20} /></div>
 
-            <div className={styles.inputWrapper} style={{ position: 'relative' }}>
+            <div className={styles.inputWrapper} style={{ position: 'relative' }} ref={destWrapperRef}>
               <Navigation size={20} className={styles.inputIcon} />
               <input 
                 type="text" 
@@ -237,6 +293,20 @@ export function SmartRouteAssistant() {
 
             {/* Premium Boarding Pass */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', flex: 1, minWidth: '300px' }} ref={cardRef}>
+              {searchedOnce && viableRoutes.length === 0 && (
+                <div className={styles.boardingPassCard} style={{ background: 'rgba(255, 255, 255, 0.02)', borderColor: 'rgba(255, 255, 255, 0.05)' }}>
+                  <div className={styles.passHeader}>
+                    <span className={styles.passBrand}>BATATA FRETADOS</span>
+                    <span className={styles.passTag}>SEM ROTA COMPATÍVEL</span>
+                  </div>
+                  <h3 className={styles.passLineName} style={{ color: '#aaa', fontSize: '1.2rem', marginTop: '12px' }}>
+                    Nenhuma linha atende esse trajeto ainda
+                  </h3>
+                  <p style={{ color: '#888', marginTop: '8px', fontSize: '0.9rem', lineHeight: '1.4' }}>
+                    Seu endereço de origem ou destino está fora do raio das nossas paradas atuais. Fale com a equipe abaixo para avaliarmos um ponto sob medida.
+                  </p>
+                </div>
+              )}
               {viableRoutes.map((route, i) => {
                 const timeEmbarque = Math.max(2, Math.round(route.bDistKm * 2.5));
                 return (

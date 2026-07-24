@@ -32,8 +32,8 @@
         },
         {
           "name": "Carrefour Rua Ademar de Barros",
-          "lat": -23.49,
-          "lng": -47.468
+          "lat": -23.486302,
+          "lng": -47.471529
         },
         {
           "name": "Rua Frederico Schleifer",
@@ -47,13 +47,13 @@
         },
         {
           "name": "Vanel Ville McDonald's",
-          "lat": -23.49,
-          "lng": -47.43
+          "lat": -23.500541,
+          "lng": -47.50449
         },
         {
           "name": "Terminal Ipiranga av Santa Cruz",
-          "lat": -23.5,
-          "lng": -47.42
+          "lat": -23.499458,
+          "lng": -47.507209
         },
         {
           "name": "Américo Figueiredo",
@@ -62,48 +62,48 @@
         },
         {
           "name": "Armando Pannunzio/Bradesco",
-          "lat": -23.52,
-          "lng": -47.4
+          "lat": -23.518789,
+          "lng": -47.490426
         },
         {
           "name": "Armando Pannunzio/ Supermercado Confiança",
-          "lat": -23.53,
-          "lng": -47.39
+          "lat": -23.518789,
+          "lng": -47.490426
         },
         {
           "name": "Raposo Tavares/ Sentido Votorantim",
-          "lat": -23.54,
-          "lng": -47.38
+          "lat": -23.525561,
+          "lng": -47.444443
         },
         {
           "name": "Votorantim Shopping Iguatemi/ Tauste/ Mercadão",
-          "lat": -23.55,
-          "lng": -47.37
+          "lat": -23.539658,
+          "lng": -47.466501
         },
         {
           "name": "Condomínio Sunset / Condomínio Alfa Clube/ Bairro Parque Campolim",
-          "lat": -23.56,
-          "lng": -47.36
+          "lat": -23.543634,
+          "lng": -47.469443
         },
         {
           "name": "Av Cláudio Pinto Nascimento/Sesi Votorantim",
-          "lat": -23.57,
-          "lng": -47.35
+          "lat": -23.535729,
+          "lng": -47.455998
         },
         {
           "name": "Av 31 de Março Bombeiro Votorantim",
-          "lat": -23.58,
-          "lng": -47.34
+          "lat": -23.531965,
+          "lng": -47.450778
         },
         {
           "name": "Posto Madeira sentido Marginal Dom Aguirre",
-          "lat": -23.59,
-          "lng": -47.33
+          "lat": -23.46969,
+          "lng": -47.448523
         },
         {
           "name": "Marginal Dom Aguirre/ Terminal São Paulo/ Bombeiro/ Posto Leizer",
-          "lat": -23.6,
-          "lng": -47.32
+          "lat": -23.504532,
+          "lng": -47.452625
         },
         {
           "name": "Castelinho",
@@ -119,8 +119,8 @@
       "dropoffStops": [
         {
           "name": "Centro Empresarial João Dias",
-          "lat": -23.645,
-          "lng": -46.745
+          "lat": -23.649202,
+          "lng": -46.729996
         },
         {
           "name": "Estação João Dias",
@@ -134,13 +134,13 @@
         },
         {
           "name": "Estação Morumbi",
-          "lat": -22.957637,
-          "lng": -47.120146
+          "lat": -23.614,
+          "lng": -46.6953
         },
         {
           "name": "DED",
-          "lat": -23.605,
-          "lng": -46.705
+          "lat": -23.620452,
+          "lng": -46.70063
         },
         {
           "name": "Estação Berrini",
@@ -149,8 +149,8 @@
         },
         {
           "name": "Posto Ally",
-          "lat": -23.585,
-          "lng": -46.685
+          "lat": -23.612906,
+          "lng": -46.671246
         },
         {
           "name": "Estação Vila Olímpia",
@@ -159,8 +159,8 @@
         },
         {
           "name": "Cidade Jardim (Posto)",
-          "lat": -23.565,
-          "lng": -46.665
+          "lat": -23.620452,
+          "lng": -46.70063
         },
         {
           "name": "Estação Pinheiros",
@@ -179,23 +179,23 @@
         },
         {
           "name": "Castelo Branco – Km 17",
-          "lat": -23.52,
-          "lng": -46.78
+          "lat": -23.5116706,
+          "lng": -46.8033481
         },
         {
           "name": "Castelo Branco – Km 22",
-          "lat": -23.515,
-          "lng": -46.83
+          "lat": -23.5046891,
+          "lng": -46.8664063
         },
         {
           "name": "Castelo Branco – Km 26",
-          "lat": -23.51,
-          "lng": -46.85
+          "lat": -23.504943,
+          "lng": -46.8792909
         },
         {
           "name": "Marginal Pinheiros (Chegada)",
-          "lat": -23.55,
-          "lng": -46.7
+          "lat": -23.567,
+          "lng": -46.702
         }
       ],
       "schedule": [
@@ -255,8 +255,8 @@
         },
         {
           "name": "3 DE MARÇO PARQUE CHICO MENDES",
-          "lat": -23.51,
-          "lng": -47.442
+          "lat": -23.447614,
+          "lng": -47.376248
         },
         {
           "name": "CONDOMINIOS LE FRANCE VILA AMORE E PRIMAVERA",
@@ -265,8 +265,8 @@
         },
         {
           "name": "FÓRUM E OAB",
-          "lat": -23.52,
-          "lng": -47.435
+          "lat": -23.471996,
+          "lng": -47.421293
         },
         {
           "name": "AV. INDEPENDENCIA TERMINAL ÉDEN",
@@ -275,8 +275,8 @@
         },
         {
           "name": "AV. PARANA CONDOMINIO CAMPOS DO CONDE",
-          "lat": -23.53,
-          "lng": -47.428
+          "lat": -23.409604,
+          "lng": -47.39004
         },
         {
           "name": "AV. PARANA CONDOMINIO TERRAS SÃO FRANCISCO",
@@ -285,13 +285,13 @@
         },
         {
           "name": "PARANA ESCOLA KEVEDO",
-          "lat": -23.54,
-          "lng": -47.422
+          "lat": -23.397146,
+          "lng": -47.357776
         },
         {
           "name": "AV. PARANA CONDOMINIO CITY CASTELO",
-          "lat": -23.545,
-          "lng": -47.42
+          "lat": -23.397327,
+          "lng": -47.356206
         },
         {
           "name": "RODOVIA CASTELO BRANCO",
@@ -302,33 +302,33 @@
       "dropoffStops": [
         {
           "name": "RODOVIA CASTELO BRANCO KM 26 BARUERI",
-          "lat": -23.51,
-          "lng": -46.85
+          "lat": -23.504943,
+          "lng": -46.8792909
         },
         {
           "name": "RODOVIA CASTELO BRANCO KM 22 TAMBORE",
-          "lat": -23.515,
-          "lng": -46.83
+          "lat": -23.5046891,
+          "lng": -46.8664063
         },
         {
           "name": "RODOVIA CASTELO BRANCO KM 17 OSASCO",
-          "lat": -23.52,
-          "lng": -46.78
+          "lat": -23.5116706,
+          "lng": -46.8033481
         },
         {
           "name": "MARGINAL PINHEIROS PONTE JAGUARE",
-          "lat": -23.54,
-          "lng": -46.735
+          "lat": -23.54496,
+          "lng": -46.73359
         },
         {
           "name": "MARGINAL PINHEIROS PONTE CIDADE UNIVERSITARIA",
-          "lat": -23.55,
-          "lng": -46.72
+          "lat": -23.558335,
+          "lng": -46.711587
         },
         {
           "name": "MARGINAL PINHEIROS BUTANTÃ PROX. METRO LINHA AMARELA",
-          "lat": -23.57,
-          "lng": -46.705
+          "lat": -23.571913,
+          "lng": -46.708168
         },
         {
           "name": "ESTAÇÃO VILA OLIMPIA CPTM",
@@ -337,8 +337,8 @@
         },
         {
           "name": "ESTAÇÃO CIDADE JARDIM CPTM",
-          "lat": -23.754244,
-          "lng": -46.70924
+          "lat": -23.5853,
+          "lng": -46.691
         },
         {
           "name": "ESTAÇÃO HEBRAICA CPTM E PONTE EUSÉBIO MATOSO",
