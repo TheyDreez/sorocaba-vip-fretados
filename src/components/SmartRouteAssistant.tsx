@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MapPin, Navigation, Bus, Clock, ArrowRight, QrCode } from 'lucide-react';
+import { MapPin, Navigation, Bus, Clock, ArrowRight } from 'lucide-react';
 import styles from '@/app/page.module.css';
 import routesData from '@/data/routes.json';
 import { trackWhatsAppConversion } from '@/utils/trackConversion';
@@ -20,6 +20,8 @@ gsap.registerPlugin(ScrollTrigger);
 const SEARCH_VIEWBOX = '-47.75,-23.20,-46.55,-23.85';
 
 // Nominatim Search Function
+// Retorna null quando a busca foi abortada ou falhou por erro de rede,
+// para o chamador saber diferenciar "sem resultados" de "não atualizar o estado".
 const searchNominatim = async (query: string, signal?: AbortSignal) => {
   if (!query || query.length < 3) return [];
   try {
@@ -30,6 +32,9 @@ const searchNominatim = async (query: string, signal?: AbortSignal) => {
         signal
       }
     );
+    if (!res.ok) {
+      throw new Error(`Nominatim respondeu ${res.status}`);
+    }
     const data = await res.json();
     return data.map((d: any) => ({
       lat: parseFloat(d.lat),
@@ -37,10 +42,13 @@ const searchNominatim = async (query: string, signal?: AbortSignal) => {
       address: d.display_name
     }));
   } catch (err: any) {
-    if (err?.name !== 'AbortError') {
-      console.error("Nominatim error:", err);
+    if (err?.name === 'AbortError') {
+      // Busca cancelada por uma digitação mais nova: não é um resultado válido,
+      // sinalizamos com null para o chamador ignorar e não sobrescrever o estado atual.
+      return null;
     }
-    return [];
+    console.error("Nominatim error:", err);
+    return 'error';
   }
 };
 
@@ -68,6 +76,10 @@ export function SmartRouteAssistant() {
   const [destResults, setDestResults] = useState<any[]>([]);
   const [showOrigResults, setShowOrigResults] = useState(false);
   const [showDestResults, setShowDestResults] = useState(false);
+  const [origLoading, setOrigLoading] = useState(false);
+  const [destLoading, setDestLoading] = useState(false);
+  const [origError, setOrigError] = useState(false);
+  const [destError, setDestError] = useState(false);
 
   const origTimer = useRef<NodeJS.Timeout | null>(null);
   const destTimer = useRef<NodeJS.Timeout | null>(null);
@@ -80,8 +92,7 @@ export function SmartRouteAssistant() {
   const [destPlace, setDestPlace] = useState<{lat: number, lng: number, address: string} | null>(null);
   
   const [viableRoutes, setViableRoutes] = useState<any[]>([]);
-  const [searchedOnce, setSearchedOnce] = useState(false);
-  const [routeTime, setRouteTime] = useState<string>("1h15"); 
+  const [searchedOnce, setSearchedOnce] = useState(false); 
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -147,13 +158,27 @@ export function SmartRouteAssistant() {
       if (closestB && closestD && minBDist < MAX_BOARDING_DIST_KM && minDDist < MAX_DROPOFF_DIST_KM) {
         const routeDist = getDistanceFromLatLonInKm(closestB.lat, closestB.lng, closestD.lat, closestD.lng);
         const score = (minBDist * 0.4) + (minDDist * 0.4) + (routeDist * 0.2);
-        
+
+        // Velocidade média estimada em rodovia (Castelo Branco/Raposo Tavares) considerando
+        // trecho urbano de saída/chegada + pedágios: ~55km/h médio no trajeto todo.
+        // routeDist é linha reta, então aplicamos um fator de correção de +25% para
+        // aproximar da distância real rodada (rodovias raramente são retas).
+        const AVG_SPEED_KMH = 55;
+        const ROAD_CORRECTION_FACTOR = 1.25;
+        const estimatedRoadKm = routeDist * ROAD_CORRECTION_FACTOR;
+        const travelMinutes = Math.round((estimatedRoadKm / AVG_SPEED_KMH) * 60);
+        const hours = Math.floor(travelMinutes / 60);
+        const minutes = travelMinutes % 60;
+        const routeTimeLabel = hours > 0 ? `${hours}h${minutes.toString().padStart(2, '0')}` : `${minutes}min`;
+
         viable.push({
           line,
           boarding: closestB,
           dropoff: closestD,
           bDistKm: minBDist,
           dDistKm: minDDist,
+          routeDistKm: routeDist,
+          routeTimeLabel,
           score
         });
       }
@@ -176,11 +201,16 @@ export function SmartRouteAssistant() {
     setOrigQuery(val);
     setShowOrigResults(true);
     setOriginPlace(null); // invalida seleção anterior até o usuário escolher de novo
+    setOrigError(false);
     if (origTimer.current) clearTimeout(origTimer.current);
     origTimer.current = setTimeout(async () => {
       origAbort.current?.abort();
       origAbort.current = new AbortController();
+      setOrigLoading(true);
       const res = await searchNominatim(val, origAbort.current.signal);
+      setOrigLoading(false);
+      if (res === null) return; // busca abortada: ignora, não mexe no estado
+      if (res === 'error') { setOrigError(true); setOrigResults([]); return; }
       setOrigResults(res);
     }, 500);
   };
@@ -190,11 +220,16 @@ export function SmartRouteAssistant() {
     setDestQuery(val);
     setShowDestResults(true);
     setDestPlace(null); // invalida seleção anterior até o usuário escolher de novo
+    setDestError(false);
     if (destTimer.current) clearTimeout(destTimer.current);
     destTimer.current = setTimeout(async () => {
       destAbort.current?.abort();
       destAbort.current = new AbortController();
+      setDestLoading(true);
       const res = await searchNominatim(val, destAbort.current.signal);
+      setDestLoading(false);
+      if (res === null) return; // busca abortada: ignora, não mexe no estado
+      if (res === 'error') { setDestError(true); setDestResults([]); return; }
       setDestResults(res);
     }, 500);
   };
@@ -252,7 +287,24 @@ export function SmartRouteAssistant() {
                 onChange={handleOrigChange}
                 onFocus={() => setShowOrigResults(true)}
               />
-              {showOrigResults && origResults.length > 0 && (
+              {showOrigResults && origLoading && (
+                <div className={styles.autocompleteDropdown}>
+                  <div className={styles.autocompleteItem} style={{ opacity: 0.6 }}>Buscando endereço...</div>
+                </div>
+              )}
+              {showOrigResults && !origLoading && origError && (
+                <div className={styles.autocompleteDropdown}>
+                  <div className={styles.autocompleteItem} style={{ opacity: 0.6 }}>
+                    Não foi possível buscar agora. Tente novamente em instantes.
+                  </div>
+                </div>
+              )}
+              {showOrigResults && !origLoading && !origError && origQuery.length >= 3 && origResults.length === 0 && (
+                <div className={styles.autocompleteDropdown}>
+                  <div className={styles.autocompleteItem} style={{ opacity: 0.6 }}>Nenhum endereço encontrado</div>
+                </div>
+              )}
+              {showOrigResults && !origLoading && origResults.length > 0 && (
                 <div className={styles.autocompleteDropdown}>
                   {origResults.map((res, i) => (
                     <div key={i} className={styles.autocompleteItem} onClick={() => selectOrigin(res)}>
@@ -275,7 +327,24 @@ export function SmartRouteAssistant() {
                 onChange={handleDestChange}
                 onFocus={() => setShowDestResults(true)}
               />
-              {showDestResults && destResults.length > 0 && (
+              {showDestResults && destLoading && (
+                <div className={styles.autocompleteDropdown}>
+                  <div className={styles.autocompleteItem} style={{ opacity: 0.6 }}>Buscando endereço...</div>
+                </div>
+              )}
+              {showDestResults && !destLoading && destError && (
+                <div className={styles.autocompleteDropdown}>
+                  <div className={styles.autocompleteItem} style={{ opacity: 0.6 }}>
+                    Não foi possível buscar agora. Tente novamente em instantes.
+                  </div>
+                </div>
+              )}
+              {showDestResults && !destLoading && !destError && destQuery.length >= 3 && destResults.length === 0 && (
+                <div className={styles.autocompleteDropdown}>
+                  <div className={styles.autocompleteItem} style={{ opacity: 0.6 }}>Nenhum endereço encontrado</div>
+                </div>
+              )}
+              {showDestResults && !destLoading && destResults.length > 0 && (
                 <div className={styles.autocompleteDropdown}>
                   {destResults.map((res, i) => (
                     <div key={i} className={styles.autocompleteItem} onClick={() => selectDest(res)}>
@@ -348,7 +417,7 @@ export function SmartRouteAssistant() {
                       <Clock size={20} style={{ color: 'var(--accent-gold)' }} />
                       <div>
                         <div className={styles.metricLabel}>Viagem estimada</div>
-                        <div className={styles.metricValue}>{routeTime}</div>
+                        <div className={styles.metricValue}>{route.routeTimeLabel}</div>
                       </div>
                     </div>
                   </div>
@@ -357,9 +426,6 @@ export function SmartRouteAssistant() {
                     <button onClick={() => handleBook(route)} className={styles.btnPrimary} style={{ flex: 1, padding: '16px' }}>
                       Reservar Linha
                     </button>
-                    <div className={styles.qrCodePlaceholder}>
-                      <QrCode size={32} opacity={0.3} />
-                    </div>
                   </div>
                 </div>
               )})}
