@@ -210,8 +210,8 @@
       "boardingStops": [
         {
           "name": "AV. IPANEMA (LUZIO)",
-          "lat": -23.4688,
-          "lng": -47.4841
+          "lat": -23.453552,
+          "lng": -47.507433
         },
         {
           "name": "IPANEMA CRUZ DE FERRO",
@@ -220,13 +220,13 @@
         },
         {
           "name": "PARQUE SÃO BENTO HORTO 01,02,03 E 04",
-          "lat": -23.472,
-          "lng": -47.478
+          "lat": -23.431986,
+          "lng": -47.506205
         },
         {
           "name": "AV. EDGAR FRUFRU SÃO GUILHERME",
-          "lat": -23.475,
-          "lng": -47.475
+          "lat": -23.45182,
+          "lng": -47.486526
         },
         {
           "name": "SHOPPING SOROCABA",
@@ -240,8 +240,8 @@
         },
         {
           "name": "RUA SÃO BENTO ( CENTRO)",
-          "lat": -23.502,
-          "lng": -47.458
+          "lat": -23.500285,
+          "lng": -47.457366
         },
         {
           "name": "AV. SÃO PAULO SANTA CASA",
@@ -250,8 +250,8 @@
         },
         {
           "name": "AV. SÃO PAULO CONFIANÇA SUPERMERCADO",
-          "lat": -23.505,
-          "lng": -47.448
+          "lat": -23.49067,
+          "lng": -47.415828
         },
         {
           "name": "3 DE MARÇO PARQUE CHICO MENDES",
@@ -260,8 +260,8 @@
         },
         {
           "name": "CONDOMINIOS LE FRANCE VILA AMORE E PRIMAVERA",
-          "lat": -23.515,
-          "lng": -47.438
+          "lat": -23.473209,
+          "lng": -47.406063
         },
         {
           "name": "FÓRUM E OAB",
@@ -280,8 +280,8 @@
         },
         {
           "name": "AV. PARANA CONDOMINIO TERRAS SÃO FRANCISCO",
-          "lat": -23.535,
-          "lng": -47.425
+          "lat": -23.416209,
+          "lng": -47.405762
         },
         {
           "name": "PARANA ESCOLA KEVEDO",
@@ -337,8 +337,8 @@
         },
         {
           "name": "ESTAÇÃO CIDADE JARDIM CPTM",
-          "lat": -23.5853,
-          "lng": -46.691
+          "lat": -23.754244,
+          "lng": -46.70924
         },
         {
           "name": "ESTAÇÃO HEBRAICA CPTM E PONTE EUSÉBIO MATOSO",
@@ -347,13 +347,13 @@
         },
         {
           "name": "AVENIDA ENGENHEIRO CARLOS BERRINI VIVO",
-          "lat": -23.608,
-          "lng": -46.696
+          "lat": -23.607825,
+          "lng": -46.693894
         },
         {
           "name": "AVENIDA CHUCRI ZAIDAN VIVO SHOPPING MORUMBI E ROCHA VERÁ",
-          "lat": -23.621,
-          "lng": -46.699
+          "lat": -23.619637,
+          "lng": -46.697932
         },
         {
           "name": "RUA CECILIA LUTEMBERG PROX. ESTAÇÃO GRANJA JULIETA CPTM",
@@ -367,8 +367,8 @@
         },
         {
           "name": "RUA AMADOR BUENO SANTANDER SANTO AMARO",
-          "lat": -23.655,
-          "lng": -46.711
+          "lat": -23.652562,
+          "lng": -46.710929
         }
       ],
       "schedule": [
@@ -388,8 +388,8 @@
         },
         {
           "name": "Av Angélica - Mercado São Roque",
-          "lat": -23.4735,
-          "lng": -47.4645
+          "lat": -23.48283,
+          "lng": -47.480003
         },
         {
           "name": "Av Paulo Emanuel de Almeida",
