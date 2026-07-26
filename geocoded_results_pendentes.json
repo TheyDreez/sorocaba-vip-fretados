@@ -1,0 +1,84 @@
+[
+  {
+    "name": "Estação Morumbi",
+    "query": "Avenida Roque Petroni Júnior, São Paulo, SP",
+    "coords": {
+      "lat": "-23.620008",
+      "lng": "-46.701493"
+    },
+    "matchedAddress": "Ponte do Morumbi Caio Pompeu de Toledo, Vila Andrade, Santo Amaro, São Paulo, Região Sudeste, 04583-110, Brasil"
+  },
+  {
+    "name": "Marginal Pinheiros (Chegada)",
+    "query": "Ponte Eusébio Matoso, São Paulo, SP",
+    "coords": {
+      "lat": "-23.572168",
+      "lng": "-46.699868"
+    },
+    "matchedAddress": "Ponte Eusébio Matoso, Pinheiros, São Paulo, Região Sudeste, 05425-060, Brasil"
+  },
+  {
+    "name": "PRAÇA 9 DE JULHO",
+    "query": "Praça Nove de Julho, Sorocaba, SP",
+    "coords": {
+      "lat": "-23.502872",
+      "lng": "-47.468214"
+    },
+    "matchedAddress": "Praça Nove de Julho, Vila Jandira Leão, Sorocaba, São Paulo, Região Sudeste, 18010-020, Brasil"
+  },
+  {
+    "name": "AV. INDEPENDENCIA TERMINAL ÉDEN",
+    "query": "Avenida Independência, Sorocaba, SP",
+    "coords": {
+      "lat": "-23.450708",
+      "lng": "-47.418014"
+    },
+    "matchedAddress": "Avenida Independência, Metropolitano Condomínio Empresarial, Sorocaba, São Paulo, Região Sudeste, 18087-101, Brasil"
+  },
+  {
+    "name": "ESTAÇÃO VILA OLIMPIA CPTM",
+    "query": "Avenida Hélio Pellegrino, São Paulo, SP",
+    "coords": {
+      "lat": "-23.597477",
+      "lng": "-46.678500"
+    },
+    "matchedAddress": "Avenida Hélio Pellegrino, Vila Olímpia, Itaim Bibi, São Paulo, Região Sudeste, 04549-050, Brasil"
+  },
+  {
+    "name": "ESTAÇÃO HEBRAICA CPTM E PONTE EUSÉBIO MATOSO",
+    "query": "Ponte Eusébio Matoso, São Paulo, SP",
+    "coords": {
+      "lat": "-23.572168",
+      "lng": "-46.699868"
+    },
+    "matchedAddress": "Ponte Eusébio Matoso, Pinheiros, São Paulo, Região Sudeste, 05425-060, Brasil"
+  },
+  {
+    "name": "RUA CECILIA LUTEMBERG PROX. ESTAÇÃO GRANJA JULIETA CPTM",
+    "query": "Rua Cecília Lutemberg, São Paulo, SP",
+    "coords": null
+  },
+  {
+    "name": "RUA CASTRO VERDE PROX. ESTAÇÃO JOÃO DIAS CPTM",
+    "query": "Rua Castro Verde, São Paulo, SP",
+    "coords": {
+      "lat": "-23.638748",
+      "lng": "-46.718691"
+    },
+    "matchedAddress": "Rua Castro Verde, Granja Julieta, Santo Amaro, São Paulo, Região Sudeste, 04729-060, Brasil"
+  },
+  {
+    "name": "Av Pres. JK - Rodoviária",
+    "query": "Avenida Presidente Kennedy, Sorocaba, SP",
+    "coords": {
+      "lat": "-23.510504",
+      "lng": "-47.466614"
+    },
+    "matchedAddress": "Avenida Presidente Kennedy, Jardim Paulistano, Sorocaba, São Paulo, Região Sudeste, 18040-550, Brasil"
+  },
+  {
+    "name": "Ponte da Anhanguera",
+    "query": "Ponte da Rodovia Anhanguera, Marginal Tietê, São Paulo, SP",
+    "coords": null
+  }
+]

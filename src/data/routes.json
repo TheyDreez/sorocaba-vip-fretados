@@ -134,8 +134,8 @@
         },
         {
           "name": "Estação Morumbi",
-          "lat": -23.614,
-          "lng": -46.6953
+          "lat": "-23.620008",
+          "lng": "-46.701493"
         },
         {
           "name": "DED",
@@ -194,8 +194,8 @@
         },
         {
           "name": "Marginal Pinheiros (Chegada)",
-          "lat": -23.567,
-          "lng": -46.702
+          "lat": "-23.572168",
+          "lng": "-46.699868"
         }
       ],
       "schedule": [
@@ -235,8 +235,8 @@
         },
         {
           "name": "PRAÇA 9 DE JULHO",
-          "lat": -23.505,
-          "lng": -47.462
+          "lat": "-23.502872",
+          "lng": "-47.468214"
         },
         {
           "name": "RUA SÃO BENTO ( CENTRO)",
@@ -270,8 +270,8 @@
         },
         {
           "name": "AV. INDEPENDENCIA TERMINAL ÉDEN",
-          "lat": -23.4249,
-          "lng": -47.4136
+          "lat": "-23.450708",
+          "lng": "-47.418014"
         },
         {
           "name": "AV. PARANA CONDOMINIO CAMPOS DO CONDE",
@@ -332,8 +332,8 @@
         },
         {
           "name": "ESTAÇÃO VILA OLIMPIA CPTM",
-          "lat": -23.593,
-          "lng": -46.689
+          "lat": "-23.597477",
+          "lng": "-46.678500"
         },
         {
           "name": "ESTAÇÃO CIDADE JARDIM CPTM",
@@ -342,8 +342,8 @@
         },
         {
           "name": "ESTAÇÃO HEBRAICA CPTM E PONTE EUSÉBIO MATOSO",
-          "lat": -23.575,
-          "lng": -46.695
+          "lat": "-23.572168",
+          "lng": "-46.699868"
         },
         {
           "name": "AVENIDA ENGENHEIRO CARLOS BERRINI VIVO",
@@ -362,8 +362,8 @@
         },
         {
           "name": "RUA CASTRO VERDE PROX. ESTAÇÃO JOÃO DIAS CPTM",
-          "lat": -23.645,
-          "lng": -46.715
+          "lat": "-23.638748",
+          "lng": "-46.718691"
         },
         {
           "name": "RUA AMADOR BUENO SANTANDER SANTO AMARO",
@@ -433,8 +433,8 @@
         },
         {
           "name": "Av Pres. JK - Rodoviária",
-          "lat": -23.502,
-          "lng": -47.466
+          "lat": "-23.510504",
+          "lng": "-47.466614"
         },
         {
           "name": "Rua Leopoldo Machado - Terminal",
