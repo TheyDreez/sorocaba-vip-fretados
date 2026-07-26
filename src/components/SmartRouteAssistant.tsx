@@ -12,42 +12,34 @@ import { trackWhatsAppConversion } from '@/utils/trackConversion';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Bounding box que cobre Sorocaba/Votorantim até a Grande São Paulo.
-// Sem isso, o Nominatim pode retornar endereços homônimos em outras cidades
-// do Brasil (ex.: "Rua São Bento" existe em dezenas de cidades), fazendo o
-// cálculo de distância explodir e o assistente não encontrar nenhuma rota.
-// Formato exigido pela API: left,top,right,bottom (lng,lat,lng,lat)
-const SEARCH_VIEWBOX = '-47.75,-23.20,-46.55,-23.85';
-
-// Nominatim Search Function
+// Busca de endereço via proxy próprio (/api/geocode), que já cuida de cache,
+// throttle (respeita o limite do Nominatim) e User-Agent correto. O
+// componente não fala mais direto com nominatim.openstreetmap.org.
 // Retorna null quando a busca foi abortada ou falhou por erro de rede,
 // para o chamador saber diferenciar "sem resultados" de "não atualizar o estado".
 const searchNominatim = async (query: string, signal?: AbortSignal) => {
   if (!query || query.length < 3) return [];
   try {
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&countrycodes=br&viewbox=${SEARCH_VIEWBOX}&bounded=1&limit=5`,
-      {
-        headers: { 'Accept-Language': 'pt-BR' },
-        signal
-      }
-    );
-    if (!res.ok) {
-      throw new Error(`Nominatim respondeu ${res.status}`);
+    const res = await fetch(`/api/geocode?q=${encodeURIComponent(query)}`, { signal });
+
+    if (res.status === 503) {
+      // Nominatim rate-limitou o proxy: tratamos como erro temporário, não como
+      // "endereço não existe", pra não confundir o usuário.
+      throw new Error('RATE_LIMITED');
     }
-    const data = await res.json();
-    return data.map((d: any) => ({
-      lat: parseFloat(d.lat),
-      lng: parseFloat(d.lon),
-      address: d.display_name
-    }));
+    if (!res.ok) {
+      throw new Error(`Proxy respondeu ${res.status}`);
+    }
+
+    const { results } = await res.json();
+    return results as { lat: number; lng: number; address: string }[];
   } catch (err: any) {
     if (err?.name === 'AbortError') {
       // Busca cancelada por uma digitação mais nova: não é um resultado válido,
       // sinalizamos com null para o chamador ignorar e não sobrescrever o estado atual.
       return null;
     }
-    console.error("Nominatim error:", err);
+    console.error("Geocode proxy error:", err);
     return 'error';
   }
 };
